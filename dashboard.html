@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en" class="antialiased selection:bg-red-500 selection:text-white">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Policyholder Console & Vehicle Telemetry | STACKLY MOTOR</title>
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+  <link rel="alternate icon" type="image/svg+xml" href="assets/images/logo-icon.svg">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              red: '#ef4444',
+              darkRed: '#b91c1c',
+              dark: '#050508',
+              surface: '#0b080b',
+              border: '#2a1114'
+            }
+          },
+          fontFamily: {
+            display: ['"Space Grotesk"', 'sans-serif'],
+            sans: ['"Plus Jakarta Sans"', 'Inter', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+  <!-- Lenis & Lucide CDN -->
+  <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-[#050508] text-slate-100 font-sans overflow-x-hidden min-h-screen flex flex-col justify-between">
+
+  <!-- Global Reading Progress Bar -->
+  <div id="global-scroll-progress"></div>
+
+  <!-- TOP-LEVEL LOGGED-IN TELEMETRY RIBBON & ACCOUNT SWITCHER BAR -->
+  <div class="w-full bg-[#080507] border-b border-red-500/40 py-2.5 px-4 sm:px-8 text-xs font-mono text-slate-300 flex flex-wrap items-center justify-between gap-3 z-50 relative">
+    
+    <!-- User Info & Active Status -->
+    <div class="flex items-center gap-3">
+      <div class="flex items-center gap-2 px-3 py-1 rounded-full bg-red-950/90 border border-red-500/60 text-red-300 shadow-[0_0_15px_rgba(239,68,68,0.3)]">
+        <span class="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse"></span>
+        <span class="opacity-80">VIP CONSOLE:</span>
+        <span class="font-extrabold text-white tracking-wider user-email-display">alexander.wright@ferrari-vip.io</span>
+      </div>
+      <span class="hidden sm:inline text-slate-700">|</span>
+      <div class="hidden sm:flex items-center gap-1.5 text-emerald-400 font-semibold">
+        <i data-lucide="shield-check" class="w-4 h-4"></i>
+        <span>AGREED VALUE ACTIVE &bull; ZERO DEDUCTIBLE</span>
+      </div>
+    </div>
+
+    <!-- Quick Persona Switcher Chips directly on Dashboard -->
+    <div class="flex items-center gap-2">
+      <span class="text-[10px] text-slate-400 hidden xl:inline uppercase font-bold text-red-400">Switch VIP Profile:</span>
+      <div class="flex items-center gap-1.5 bg-black/80 p-1 rounded-full border border-red-950/80">
+        <button onclick="switchDashboardPersona(0)" id="dash-switch-0" class="dash-switch-btn px-2.5 py-1 rounded-full text-[10px] font-mono font-bold transition-all bg-red-600 text-white shadow-sm" title="Alexander Wright (Ferrari SF90)">
+          SF90
+        </button>
+        <button onclick="switchDashboardPersona(1)" id="dash-switch-1" class="dash-switch-btn px-2.5 py-1 rounded-full text-[10px] font-mono font-bold transition-all text-slate-400 hover:text-white" title="Elena Rostova (488 Pista)">
+          488 Pista
+        </button>
+        <button onclick="switchDashboardPersona(2)" id="dash-switch-2" class="dash-switch-btn px-2.5 py-1 rounded-full text-[10px] font-mono font-bold transition-all text-slate-400 hover:text-white" title="Marcus Vance (Roma GT)">
+          Roma GT
+        </button>
+      </div>
+      <button onclick="window.auth.logout()" class="px-2.5 py-1 rounded-full bg-rose-950/60 hover:bg-rose-900 border border-rose-800/60 text-rose-300 hover:text-white font-mono text-[11px] flex items-center gap-1 transition-colors">
+        <i data-lucide="log-out" class="w-3 h-3"></i>
+        <span>Sign Out</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- MAIN NAVIGATION HEADER -->
+  <header class="sticky top-0 z-40 glass-header" id="main-header">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4 sm:gap-6">
+      
+      <!-- Brand Logo (Pure Red Stackly Logo) -->
+      <a href="index.html" class="flex items-center gap-3 shrink-0 group py-1">
+        <img src="assets/images/logo.webp" alt="Stackly" class="h-8 sm:h-9 md:h-10 w-auto object-contain transition-transform group-hover:scale-105 drop-shadow-[0_2px_16px_rgba(239,68,68,0.45)]">
+      </a>
+
+      <!-- Desktop Nav (Balanced Equidistant Center Grid) -->
+      <nav class="hidden lg:flex items-center justify-center flex-1 max-w-2xl mx-auto px-2">
+        <div class="flex items-center justify-between w-full text-xs font-bold uppercase tracking-wider text-slate-300">
+          <a href="index.html" class="nav-link-callmy text-slate-300 hover:text-white">HOME</a>
+          <a href="about.html" class="nav-link-callmy text-slate-300 hover:text-white">ABOUT US</a>
+          <a href="services.html" class="nav-link-callmy text-slate-300 hover:text-white">SERVICES</a>
+          <a href="plans.html" class="nav-link-callmy text-slate-300 hover:text-white">PLANS & QUOTE</a>
+          <a href="claims.html" class="nav-link-callmy text-slate-300 hover:text-white">EXPRESS CLAIMS</a>
+          <a href="contact.html" class="nav-link-callmy text-slate-300 hover:text-white">CONTACT</a>
+          <a href="dashboard.html" class="nav-link-callmy active text-red-500 font-bold">PORTAL</a>
+        </div>
+      </nav>
+
+      <!-- Right Header Actions (Dynamic Profile & SOS) -->
+      <div class="hidden sm:flex items-center gap-3 header-auth-actions shrink-0">
+        <button onclick="window.auth.logout()" class="px-4 py-2 rounded-full border border-red-500/40 hover:border-red-400 bg-white/[0.06] text-xs font-mono uppercase text-white flex items-center gap-1.5 transition-all">
+          <i data-lucide="log-out" class="w-3.5 h-3.5 text-red-400"></i>
+          <span>Logout</span>
+        </button>
+        <a href="quote.html" class="btn-pill-red px-5 sm:px-6 py-2 text-xs uppercase tracking-wider font-bold shadow-lg">CALCULATE QUOTE</a>
+      </div>
+
+      <!-- Mobile Hamburger Button -->
+      <button id="mobile-menu-btn" class="lg:hidden p-2 rounded-xl bg-slate-900/80 border border-red-900/40 text-slate-300 hover:text-white hover:border-red-500 transition-colors backdrop-blur-md">
+        <i data-lucide="menu" class="w-5 h-5"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- PERSONALIZED WELCOME HERO & METRICS -->
+  <section class="pt-8 pb-6 bg-[#070507] border-b border-red-950/70">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+        <div class="space-y-1.5 text-left">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-950/90 border border-red-500/50 text-red-300 text-xs font-mono">
+            <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
+            <span class="user-role-display">Scuderia VIP Platinum Member</span>
+          </div>
+          <h1 class="font-display text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight uppercase">
+            WELCOME BACK, <span class="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-rose-400 user-name-display">Alexander Wright</span>
+          </h1>
+          <p class="text-xs font-mono text-slate-400">
+            Account: <strong class="text-white user-email-display">alexander.wright@ferrari-vip.io</strong> &bull; Policy Schedule: <strong class="text-red-400 user-policy-display">FR-SF90-99201</strong>
+          </p>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <button onclick="downloadPolicyCertificate()" class="btn-pill-red px-5 py-3 rounded-xl text-xs uppercase tracking-widest font-extrabold flex items-center gap-2 shadow-[0_10px_25px_rgba(220,38,38,0.5)]">
+            <i data-lucide="download" class="w-4 h-4"></i>
+            <span>Policy PDF Certificate</span>
+          </button>
+          <a href="quote.html" class="px-4 py-3 rounded-xl bg-black border border-red-900/60 hover:border-red-500 text-xs font-mono uppercase text-slate-300 hover:text-white flex items-center gap-1.5 transition-all">
+            <i data-lucide="plus" class="w-4 h-4 text-red-400"></i> Add Vehicle
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- DASHBOARD MAIN BODY -->
+  <section class="py-10 bg-[#050508] flex-1">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+      
+      <!-- Top 3 Metric Stat Cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+        
+        <!-- IDV Valuation Card -->
+        <div class="p-6 rounded-2xl bg-[#0b080b] border border-red-950/80 hover:border-red-500/50 transition-all space-y-2 text-left shadow-lg">
+          <div class="flex items-center justify-between text-slate-400 text-xs font-mono">
+            <span>INSURED ASSET VALUATION (IDV)</span>
+            <i data-lucide="shield" class="w-4 h-4 text-red-500"></i>
+          </div>
+          <div class="font-display text-3xl font-extrabold text-white" id="dash-idv-display">$585,000</div>
+          <p class="text-[11px] text-emerald-400 font-mono">✓ 100% Guaranteed Agreed Value Payout</p>
+        </div>
+
+        <!-- Telematics Score Card -->
+        <div class="p-6 rounded-2xl bg-[#0b080b] border border-red-950/80 hover:border-red-500/50 transition-all space-y-2 text-left shadow-lg">
+          <div class="flex items-center justify-between text-slate-400 text-xs font-mono">
+            <span>SMART TELEMATICS SCORE</span>
+            <i data-lucide="gauge" class="w-4 h-4 text-emerald-400"></i>
+          </div>
+          <div class="font-display text-3xl font-extrabold text-emerald-400" id="dash-score-display">99 / 100</div>
+          <p class="text-[11px] text-slate-400 font-mono">Safe Driver Discount: <strong class="text-white" id="dash-discount-display">32% ($1,840)</strong></p>
+        </div>
+
+        <!-- Policy Status Card -->
+        <div class="p-6 rounded-2xl bg-[#0b080b] border border-red-950/80 hover:border-red-500/50 transition-all space-y-2 text-left shadow-lg">
+          <div class="flex items-center justify-between text-slate-400 text-xs font-mono">
+            <span>POLICY STATUS & RENEWAL</span>
+            <i data-lucide="calendar" class="w-4 h-4 text-amber-400"></i>
+          </div>
+          <div class="font-display text-3xl font-extrabold text-white">ACTIVE</div>
+          <p class="text-[11px] text-slate-400 font-mono">Valid through <strong class="text-red-400" id="dash-expiry-display">Nov 18, 2027</strong></p>
+        </div>
+
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- Left: Primary Vehicle Policy Showcase (8 Cols) -->
+        <div class="lg:col-span-8 space-y-8">
+          
+          <!-- Master Policy Showcase Box -->
+          <div class="rounded-3xl bg-[#0b080b] border border-red-500/40 shadow-[0_20px_50px_rgba(0,0,0,0.95)] overflow-hidden space-y-6">
+            
+            <!-- Vehicle Visual Header Banner (Dynamic Ferrari Image) -->
+            <div class="relative h-60 sm:h-72 w-full overflow-hidden bg-black">
+              <img id="dash-vehicle-banner-img" src="assets/images/ferrari-sf90.webp" alt="Insured Ferrari Supercar" class="w-full h-full object-cover object-center transition-all duration-700">
+              <div class="absolute inset-0 bg-gradient-to-t from-[#0b080b] via-black/40 to-transparent"></div>
+              
+              <div class="absolute top-4 left-4 flex items-center gap-2">
+                <span class="px-3 py-1 rounded-full bg-black/85 backdrop-blur-md border border-red-500/60 text-red-300 text-xs font-mono font-bold flex items-center gap-1.5">
+                  <span class="w-2 h-2 rounded-full bg-red-500 animate-ping"></span>
+                  <span>ACTIVE APEX SHIELD</span>
+                </span>
+              </div>
+
+              <div class="absolute bottom-4 left-6 right-6 flex items-end justify-between">
+                <div class="text-left">
+                  <span class="text-[10px] font-mono uppercase tracking-[0.25em] text-red-400">PRIMARY INSURED ASSET</span>
+                  <h3 class="font-display text-2xl sm:text-3xl font-extrabold text-white user-vehicle-display">
+                    2025 Ferrari SF90 Stradale (Assetto Fiorano)
+                  </h3>
+                </div>
+                <span class="px-3 py-1 rounded-full bg-emerald-950/90 border border-emerald-400 text-emerald-400 text-xs font-mono font-bold shadow-lg">
+                  ✓ ZERO DEDUCTIBLE
+                </span>
+              </div>
+            </div>
+
+            <div class="p-6 sm:p-8 pt-0 space-y-6 text-left">
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-red-950/70">
+                <div>
+                  <p class="text-xs font-mono text-slate-300">
+                    Registration: <span class="text-white font-bold user-reg-display">FER-SF90-01</span> &bull; 
+                    Policy: <span class="text-red-400 font-bold user-policy-display">FR-SF90-99201</span>
+                  </p>
+                </div>
+                <div class="text-left sm:text-right">
+                  <span class="text-[10px] font-mono text-slate-400 uppercase">TIER PLAN:</span>
+                  <div class="font-mono text-xs font-bold text-white user-plan-display">Rosso Corsa Zero-Depreciation & Hybrid Shield</div>
+                </div>
+              </div>
+
+              <!-- Active Protection Add-Ons Matrix (Dynamically Populated by auth.js) -->
+              <div>
+                <span class="text-xs font-mono uppercase text-slate-400 tracking-wider">Active Modular Protection Shields:</span>
+                <div id="dash-addons-container" class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-3">
+                  <!-- Injected via auth.js -->
+                </div>
+              </div>
+
+              <!-- Action Controls Strip -->
+              <div class="pt-4 border-t border-red-950/70 flex flex-wrap items-center justify-between gap-3">
+                <div class="flex items-center gap-2">
+                  <a href="claims.html" class="btn-pill-red px-5 py-2.5 rounded-xl text-xs uppercase tracking-widest font-extrabold flex items-center gap-1.5 shadow-lg">
+                    <i data-lucide="shield-alert" class="w-3.5 h-3.5"></i> File Express Claim
+                  </a>
+                  <button onclick="simulatePolicyRenew()" class="px-4 py-2.5 rounded-xl bg-black border border-red-900/60 hover:border-red-500 text-xs font-mono uppercase text-slate-300 hover:text-white flex items-center gap-1.5 transition-all">
+                    <i data-lucide="refresh-cw" class="w-3.5 h-3.5 text-red-400"></i> Renew Policy
+                  </button>
+                </div>
+
+                <a href="contact.html" class="px-4 py-2.5 rounded-xl bg-red-950/80 border border-red-500/50 text-red-400 hover:text-red-300 text-xs font-mono uppercase font-bold flex items-center gap-1.5 transition-colors">
+                  <i data-lucide="siren" class="w-3.5 h-3.5 animate-pulse"></i> 24/7 SOS Patrol
+                </a>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Active Claims Section Widget (Dynamically Populated by auth.js) -->
+          <div class="p-6 rounded-2xl bg-[#0b080b] border border-red-950/80 space-y-4 text-left">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <i data-lucide="activity" class="w-5 h-5 text-red-500"></i>
+                <h4 class="font-display text-base font-bold text-white uppercase">Active Express Claim Status</h4>
+              </div>
+              <a href="claims.html" class="text-xs font-mono text-red-400 hover:underline">Full Claims Center &rarr;</a>
+            </div>
+
+            <div id="dash-claim-status-box">
+              <!-- Injected via auth.js -->
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right: Digital Document Vault & Telematics (4 Cols) -->
+        <div class="lg:col-span-4 space-y-6 text-left">
+          
+          <!-- Encrypted Document Vault -->
+          <div class="p-6 rounded-2xl bg-[#0b080b] border border-red-950/80 space-y-4">
+            <div class="flex items-center justify-between">
+              <h4 class="font-display text-base font-bold text-white flex items-center gap-2">
+                <i data-lucide="folder-lock" class="w-5 h-5 text-red-500"></i>
+                <span>Maranello Vault</span>
+              </h4>
+              <span class="text-[10px] font-mono text-emerald-400 bg-emerald-950/80 px-2 py-0.5 rounded border border-emerald-800">ENCRYPTED</span>
+            </div>
+
+            <div class="space-y-3 text-xs">
+              <div class="p-3 rounded-xl bg-black border border-red-950/60 flex items-center justify-between">
+                <div class="flex items-center gap-2.5">
+                  <i data-lucide="file-check" class="w-4 h-4 text-emerald-400"></i>
+                  <div>
+                    <span class="font-semibold text-white">Ferrari Registration (RC)</span>
+                    <p class="text-[10px] font-mono text-slate-400">Verified & Linked</p>
+                  </div>
+                </div>
+                <button onclick="downloadPolicyCertificate()" class="text-red-400 hover:text-red-300 p-1" title="Download">
+                  <i data-lucide="download" class="w-4 h-4"></i>
+                </button>
+              </div>
+
+              <div class="p-3 rounded-xl bg-black border border-red-950/60 flex items-center justify-between">
+                <div class="flex items-center gap-2.5">
+                  <i data-lucide="file-check" class="w-4 h-4 text-emerald-400"></i>
+                  <div>
+                    <span class="font-semibold text-white">FIA Track License</span>
+                    <p class="text-[10px] font-mono text-slate-400">Valid Through 2029</p>
+                  </div>
+                </div>
+                <button onclick="downloadPolicyCertificate()" class="text-red-400 hover:text-red-300 p-1" title="Download">
+                  <i data-lucide="download" class="w-4 h-4"></i>
+                </button>
+              </div>
+
+              <div class="p-3 rounded-xl bg-black border border-red-950/60 flex items-center justify-between">
+                <div class="flex items-center gap-2.5">
+                  <i data-lucide="file-check" class="w-4 h-4 text-emerald-400"></i>
+                  <div>
+                    <span class="font-semibold text-white">Maranello Inspection Certificate</span>
+                    <p class="text-[10px] font-mono text-slate-400">101-Point Inspection Pass</p>
+                  </div>
+                </div>
+                <button onclick="downloadPolicyCertificate()" class="text-red-400 hover:text-red-300 p-1" title="Download">
+                  <i data-lucide="download" class="w-4 h-4"></i>
+                </button>
+              </div>
+            </div>
+
+            <button onclick="uploadDocSimulation()" class="w-full py-2.5 rounded-xl bg-black border border-red-900/60 hover:border-red-500 text-xs font-mono uppercase text-slate-300 hover:text-white flex items-center justify-center gap-1.5 transition-all">
+              <i data-lucide="upload" class="w-3.5 h-3.5 text-red-400"></i> Upload New Document
+            </button>
+          </div>
+
+          <!-- 24/7 Professional Chauffeur Dispatch Card -->
+          <div class="p-6 rounded-2xl bg-gradient-to-tr from-red-950/30 via-[#0b080b] to-black border border-red-500/40 text-left space-y-4 shadow-lg">
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-red-500 animate-ping"></span>
+              <h4 class="font-display text-sm font-bold text-white uppercase tracking-wider">Supercar Chauffeur & Valet</h4>
+            </div>
+            <p class="text-xs text-slate-300 leading-relaxed font-sans">
+              Book complimentary door-to-door Ferrari pickup for annual Maranello routine maintenance or safe designated chauffeur transit.
+            </p>
+            <button onclick="requestValet()" class="w-full py-2.5 rounded-xl btn-pill-red text-xs uppercase tracking-widest font-extrabold shadow-md">
+              Dispatch Verified Chauffeur
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-[#050508] border-t border-red-950/70 pt-8 pb-6 text-slate-500 text-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-2">
+        <img src="assets/images/logo.webp" alt="Stackly" class="h-6 w-auto object-contain">
+        <span class="font-display font-bold text-white uppercase text-xs">STACKLY MOTOR MOBILITY ASSURE</span>
+      </div>
+      <p class="text-[11px] text-slate-500">&copy; 2026 STACKLY MOTOR. Maranello Supercar Telematics & Policyholder Dedicated Terminal.</p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/main.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    // Quick-switch persona directly on dashboard
+    function switchDashboardPersona(idx) {
+      if (typeof DEMO_PERSONAS === 'undefined' || !DEMO_PERSONAS[idx]) return;
+      const p = DEMO_PERSONAS[idx];
+      window.auth.saveUser(p);
+
+      // Update switcher button pill states
+      document.querySelectorAll('.dash-switch-btn').forEach((btn, i) => {
+        if (i === idx) {
+          btn.classList.add('bg-red-600', 'text-white', 'shadow-sm');
+          btn.classList.remove('text-slate-400');
+        } else {
+          btn.classList.remove('bg-red-600', 'text-white', 'shadow-sm');
+          btn.classList.add('text-slate-400');
+        }
+      });
+
+      if (window.playHapticSound) window.playHapticSound('success');
+      if (window.showToast) window.showToast(`Switched account to: ${p.name} (${p.vehicle.split('(')[0]})`, 'success');
+    }
+
+    // Dynamic Policy Certificate Generation & Download
+    function downloadPolicyCertificate() {
+      const user = (window.auth && window.auth.currentUser) ? window.auth.currentUser : DEMO_PERSONAS[0];
+      
+      const doc = `
+================================================================================
+                    STACKLY MOTOR - POLICY SCHEDULE CERTIFICATE
+               OFFICIAL MARANELLO SUPERCAR MOTOR UNDERWRITING PROTOCOL
+================================================================================
+Policy Ref Number : ${user.policyNo}
+Insured Name      : ${user.name}
+Account Email     : ${user.email}
+Insured Vehicle   : ${user.vehicle}
+Registration No.  : ${user.regNo}
+Insured Declared  : ${user.idv} (IDV - 100% Guaranteed Agreed Total Loss Settlement)
+Policy Validity   : Continuous through ${user.expiry}
+Driver Score      : ${user.driverScore || 99} / 100 (Safe Driver Bonus: ${user.safeDiscount || '30%'})
+
+ACTIVE APEX SHIELD ENDORSEMENTS:
+${(user.addons || []).map(a => `[X] ${a.title} - ${a.desc}`).join('\n')}
+
+CLAIMS RECORD & MARANELLO CLEARANCE:
+${(user.claims || []).map(c => `• ${c.id}: ${c.stage} | Workshop: ${c.workshop} | Payout: ${c.amount}`).join('\n')}
+
+Statutory Regulatory Stamp: IRDAI / SUPERCAR HIGH-NET-WORTH CONSORTIUM #884/2026
+Underwriting Syndicate: Munich Re & Swiss Re Exotics Syndicate (Solvency 2.45x)
+================================================================================
+      `.trim();
+
+      const blob = new Blob([doc], { type: 'text/plain;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `Stackly-Policy-Certificate-${user.policyNo}.txt`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+
+      if (window.showToast) window.showToast('Ferrari Policy Certificate generated & downloaded!', 'success');
+      if (window.playHapticSound) window.playHapticSound('success');
+    }
+
+    function simulatePolicyRenew() {
+      if (window.showToast) window.showToast('Ferrari Policy renewed for 12 months with 50% NCB bonus retained!', 'success');
+      if (window.playHapticSound) window.playHapticSound('success');
+    }
+
+    function uploadDocSimulation() {
+      if (window.showToast) window.showToast('Select document file to upload into Encrypted Maranello Vault...', 'info');
+      if (window.playHapticSound) window.playHapticSound('click');
+    }
+
+    function requestValet() {
+      if (window.showToast) window.showToast('Verified Supercar Chauffeur booked! Concierge will arrive at your location tomorrow at 10:00 AM.', 'success');
+      if (window.playHapticSound) window.playHapticSound('success');
+    }
+  </script>
+</body>
+</html>

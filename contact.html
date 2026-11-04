@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en" class="antialiased selection:bg-red-500 selection:text-white">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Emergency Roadside SOS & Support | STACKLY MOTOR</title>
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              cyan: '#00f0ff',
+              blue: '#2563eb',
+              indigo: '#4f46e5',
+              dark: '#070b14',
+              surface: '#0d1527',
+              border: '#1e293b'
+            }
+          },
+          fontFamily: {
+            display: ['"Space Grotesk"', 'sans-serif'],
+            sans: ['"Plus Jakarta Sans"', 'Inter', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+  <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-[#070b14] text-slate-100 font-sans overflow-x-hidden">
+
+  <div id="global-scroll-progress"></div>
+
+  <!-- TOP TELEMETRY RIBBON -->
+  <div class="w-full bg-[#05080f] border-b border-slate-800/80 py-1.5 px-4 sm:px-8 text-[11px] font-mono text-slate-400 flex flex-wrap items-center justify-between gap-3 z-50 relative">
+    <div class="flex items-center gap-4 flex-wrap">
+      <div class="flex items-center gap-1.5 text-red-400">
+        <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
+        <span class="font-semibold">GLOBAL COMMAND DISPATCH:</span> 24/7 ACTIVE HOTLINE
+      </div>
+      <span class="hidden md:inline text-slate-700">|</span>
+      <div class="hidden sm:flex items-center gap-1">
+        <i data-lucide="shield-alert" class="w-3.5 h-3.5 text-red-400"></i>
+        <span>PRIORITY 1 HIGHWAY SOS PATROL</span>
+      </div>
+    </div>
+    <div class="flex items-center gap-4">
+      <div class="auth-telemetry-badge hidden"></div>
+      <div class="flex items-center gap-2">
+        <i data-lucide="clock" class="w-3.5 h-3.5 text-slate-500"></i>
+        <span class="live-telemetry-time text-slate-300">--:--:-- UTC</span>
+      </div>
+      <button class="trigger-sos-modal flex items-center gap-1 text-red-400 hover:text-red-300 font-bold tracking-wider px-2 py-0.5 rounded bg-red-950/60 border border-red-500/40">
+        <i data-lucide="siren" class="w-3 h-3"></i> 24/7 SOS
+      </button>
+    </div>
+  </div>
+
+  <!-- NAVIGATION HEADER -->
+  <!-- MAIN NAVIGATION HEADER (HIGH-END GLASSMORPHISM & BALANCED EQUIDISTANT NAV) -->
+  <header class="sticky top-0 z-40 glass-header" id="main-header">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4 sm:gap-6">
+      
+      <!-- Brand Logo (Pure Red Stackly Logo) -->
+      <a href="index.html" class="flex items-center gap-3 shrink-0 group py-1">
+        <img src="assets/images/logo.webp" alt="Stackly" class="h-8 sm:h-9 md:h-10 w-auto object-contain transition-transform group-hover:scale-105 drop-shadow-[0_2px_16px_rgba(239,68,68,0.45)]">
+      </a>
+
+      <!-- Desktop Nav (Balanced Equidistant Center Grid) -->
+      <nav class="hidden lg:flex items-center justify-center flex-1 max-w-2xl mx-auto px-2">
+        <div class="flex items-center justify-between w-full text-xs font-bold uppercase tracking-wider text-slate-300">
+          <a href="index.html" class="nav-link-callmy text-slate-300 hover:text-white">HOME</a>
+          <a href="about.html" class="nav-link-callmy text-slate-300 hover:text-white">ABOUT US</a>
+          <a href="services.html" class="nav-link-callmy text-slate-300 hover:text-white">SERVICES</a>
+          <a href="plans.html" class="nav-link-callmy text-slate-300 hover:text-white">PLANS & QUOTE</a>
+          <a href="claims.html" class="nav-link-callmy text-slate-300 hover:text-white">EXPRESS CLAIMS</a>
+          <a href="contact.html" class="nav-link-callmy active">CONTACT</a>
+          <a href="dashboard.html" class="nav-link-callmy text-red-400 hover:text-red-300 font-bold">PORTAL</a>
+        </div>
+      </nav>
+
+      <!-- Right Header Actions (Working LOGIN Button + GET STARTED Red Pill Button) -->
+      <div class="hidden sm:flex items-center gap-3 header-auth-actions shrink-0">
+        <button onclick="window.openLoginModal ? window.openLoginModal() : window.location.href='login.html'" class="nav-login-btn px-4 sm:px-5 py-2 rounded-full border border-red-500/40 hover:border-red-400 bg-white/[0.06] hover:bg-red-950/50 text-xs uppercase tracking-wider font-bold text-white transition-all flex items-center gap-2 backdrop-blur-md shadow-[0_0_15px_rgba(239,68,68,0.2)] hover:shadow-[0_0_20px_rgba(239,68,68,0.4)]">
+          <i data-lucide="user" class="w-3.5 h-3.5 text-red-400"></i>
+          <span>LOGIN</span>
+        </button>
+        <a href="quote.html" class="btn-pill-red px-5 sm:px-6 py-2 text-xs uppercase tracking-wider font-bold shadow-lg">GET STARTED</a>
+      </div>
+
+      <!-- Mobile Hamburger Button -->
+      <button id="mobile-menu-btn" class="lg:hidden p-2 rounded-xl bg-slate-900/80 border border-red-900/40 text-slate-300 hover:text-white hover:border-red-500 transition-colors backdrop-blur-md">
+        <i data-lucide="menu" class="w-5 h-5"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- MOBILE NAVIGATION DRAWER -->
+  <div id="mobile-menu-drawer" class="fixed inset-y-0 right-0 z-50 w-72 bg-[#080506]/98 backdrop-blur-2xl border-l border-red-900/50 p-6 flex flex-col justify-between transform translate-x-full transition-transform duration-300 lg:hidden shadow-2xl">
+    <div>
+      <div class="flex items-center justify-between pb-6 border-b border-red-950/60">
+        <a href="index.html" class="flex items-center gap-2">
+          <img src="assets/images/logo.webp" alt="Stackly" class="h-7 sm:h-8 w-auto object-contain drop-shadow-[0_2px_12px_rgba(239,68,68,0.4)]">
+        </a>
+        <button id="mobile-menu-close" class="p-1 rounded-lg text-slate-400 hover:text-white hover:bg-slate-900 transition-colors">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <nav class="flex flex-col gap-3.5 mt-6 text-sm font-semibold tracking-wide text-slate-300">
+        <a href="index.html" class="py-1.5 transition-colors text-slate-300 hover:text-red-400">HOME</a>
+        <a href="about.html" class="py-1.5 transition-colors text-slate-300 hover:text-red-400">ABOUT US</a>
+        <a href="services.html" class="py-1.5 transition-colors text-slate-300 hover:text-red-400">SERVICES</a>
+        <a href="plans.html" class="py-1.5 transition-colors text-slate-300 hover:text-red-400">COVERAGE & PLANS</a>
+        <a href="quote.html" class="py-1.5 transition-colors text-slate-300 hover:text-red-400">PREMIUM CALCULATOR</a>
+        <a href="claims.html" class="py-1.5 transition-colors text-slate-300 hover:text-red-400">EXPRESS CLAIMS</a>
+        <a href="contact.html" class="py-1.5 transition-colors text-red-500 font-bold border-l-2 border-red-500 pl-2">CONTACT & SOS</a>
+        <a href="dashboard.html" class="py-1.5 transition-colors text-red-400 hover:text-red-300 font-bold">POLICYHOLDER PORTAL</a>
+      </nav>
+    </div>
+
+    <div class="pt-6 border-t border-red-950/60 space-y-3">
+      <a href="login.html" class="block w-full py-2.5 text-center rounded-xl bg-slate-900/90 border border-slate-700 text-xs font-semibold uppercase tracking-wider text-slate-200 hover:border-red-500/50 transition-colors">Sign In</a>
+      <a href="quote.html" class="block w-full py-2.5 text-center btn-pill-red text-xs uppercase tracking-wider font-bold">GET STARTED</a>
+    </div>
+  </div>
+
+  <!-- HERO SECTION -->
+  <section class="pt-10 pb-8 bg-[#070b14] border-b border-slate-800/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center gap-2 text-xs font-mono text-slate-500 mb-3">
+        <a href="index.html" class="hover:text-red-400">HOME</a>
+        <span>/</span>
+        <span class="text-red-400">EMERGENCY ROADSIDE SOS & CONTACT</span>
+      </div>
+      <div class="max-w-3xl space-y-3">
+        <h1 class="font-display text-3xl sm:text-4xl font-extrabold text-white">24/7 COMMAND DESK & EMERGENCY SOS</h1>
+        <p class="text-xs sm:text-sm text-slate-400">Immediate roadside flatbed towing, battery jumpstart dispatch, and priority corporate client advisory desks.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOS EMERGENCY PRIORITY CARDS -->
+  <section class="py-12 bg-[#090f1d] border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <!-- Emergency Card 1 -->
+        <div class="p-8 rounded-3xl bg-gradient-to-b from-red-950/50 via-slate-900 to-slate-950 border border-red-500/50 shadow-2xl space-y-5 text-left relative overflow-hidden">
+          <div class="flex items-center justify-between">
+            <span class="w-12 h-12 rounded-2xl bg-red-950 border border-red-500 flex items-center justify-center text-red-400">
+              <i data-lucide="siren" class="w-6 h-6 animate-pulse"></i>
+            </span>
+            <span class="text-[10px] font-mono text-red-400 uppercase tracking-widest px-2.5 py-0.5 rounded bg-red-950/80 border border-red-800">
+              PRIORITY 1
+            </span>
+          </div>
+          <div>
+            <h3 class="font-display text-xl font-bold text-white">Highway Roadside SOS</h3>
+            <p class="text-xs text-slate-400 mt-1 leading-relaxed">
+              Towing, accident recovery, flat tyre, or fuel replenishment. Vanguard Patrol reaches you in ~15 minutes.
+            </p>
+          </div>
+          <button class="trigger-sos-modal w-full py-3.5 rounded-xl bg-red-600 hover:bg-red-500 text-white font-bold text-xs uppercase tracking-widest shadow-lg shadow-red-600/30 flex items-center justify-center gap-2">
+            <i data-lucide="send" class="w-4 h-4"></i>
+            <span>DISPATCH SOS TOW TRUCK</span>
+          </button>
+        </div>
+
+        <!-- Hotline Card 2 -->
+        <div class="p-8 rounded-3xl bg-slate-900/90 border border-slate-800 hover:border-red-500/40 transition-all space-y-5 text-left">
+          <div class="flex items-center justify-between">
+            <span class="w-12 h-12 rounded-2xl bg-red-950 border border-red-500/40 flex items-center justify-center text-red-400">
+              <i data-lucide="phone-call" class="w-6 h-6"></i>
+            </span>
+            <span class="text-[10px] font-mono text-red-400 uppercase tracking-widest">
+              24/7 TOLL-FREE
+            </span>
+          </div>
+          <div>
+            <h3 class="font-display text-xl font-bold text-white">Voice Command Hotline</h3>
+            <p class="text-xs text-slate-400 mt-1 leading-relaxed">
+              Speak directly with a senior claims specialist or policy underwriter without automated telephone menus.
+            </p>
+          </div>
+          <a href="tel:18008264827" class="block w-full py-3.5 text-center rounded-xl bg-slate-950 border border-red-500/40 hover:border-red-400 text-red-300 font-mono text-sm font-bold uppercase tracking-wider transition-all">
+            1-800-VANGUARD (826-4827)
+          </a>
+        </div>
+
+        <!-- WhatsApp Concierge Card 3 -->
+        <div class="p-8 rounded-3xl bg-slate-900/90 border border-slate-800 hover:border-emerald-500/40 transition-all space-y-5 text-left">
+          <div class="flex items-center justify-between">
+            <span class="w-12 h-12 rounded-2xl bg-emerald-950 border border-emerald-500/40 flex items-center justify-center text-emerald-400">
+              <i data-lucide="message-square" class="w-6 h-6"></i>
+            </span>
+            <span class="text-[10px] font-mono text-emerald-400 uppercase tracking-widest">
+              WHATSAPP BOT
+            </span>
+          </div>
+          <div>
+            <h3 class="font-display text-xl font-bold text-white">Instant WhatsApp Concierge</h3>
+            <p class="text-xs text-slate-400 mt-1 leading-relaxed">
+              Send accident photos, get garage directions, and download policy certificates straight into your WhatsApp.
+            </p>
+          </div>
+          <button onclick="launchWhatsAppSimulation()" class="w-full py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-slate-950 font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2">
+            <i data-lucide="external-link" class="w-4 h-4"></i>
+            <span>OPEN WHATSAPP CHAT</span>
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- INTERACTIVE INQUIRY FORM & REGIONAL HUBS -->
+  <section class="py-16 bg-[#070b14]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- Left: Form (7 Cols) -->
+        <div class="lg:col-span-7 p-6 sm:p-8 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-5">
+          <div>
+            <span class="text-[10px] font-mono uppercase tracking-[0.25em] text-red-400">DIRECT DISPATCH INQUIRY</span>
+            <h3 class="font-display text-xl font-bold text-white mt-1">TRANSMIT AN ADVISORY REQUEST</h3>
+            <p class="text-xs text-slate-400">Our senior underwriters reply within an average of 14 minutes.</p>
+          </div>
+
+          <form id="contact-inquiry-form" onsubmit="handleInquirySubmit(event)" class="space-y-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-[11px] font-mono uppercase text-slate-400 mb-1">Your Full Name</label>
+                <input type="text" id="contact-name" required value="${(window.auth && window.auth.currentUser) ? window.auth.currentUser.name : 'Alexander Wright'}" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white outline-none focus:border-red-400">
+              </div>
+              <div>
+                <label class="block text-[11px] font-mono uppercase text-slate-400 mb-1">Official Email Address</label>
+                <input type="email" id="contact-email" required value="${(window.auth && window.auth.currentUser) ? window.auth.currentUser.email : 'alexander.wright@vanguard-vip.io'}" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white outline-none focus:border-red-400">
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-[11px] font-mono uppercase text-slate-400 mb-1">Inquiry Category</label>
+                <select id="contact-category" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white outline-none focus:border-red-400">
+                  <option value="Claim">Express Claim Escalation</option>
+                  <option value="Quote">Custom Premium & Fleet Quote</option>
+                  <option value="Endorsement">Policy Modification / Transfer</option>
+                  <option value="Garage">Cashless Garage Network Partnering</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-[11px] font-mono uppercase text-slate-400 mb-1">Vehicle Policy / Registration #</label>
+                <input type="text" id="contact-ref" placeholder="VG-EV-99201" value="${(window.auth && window.auth.currentUser) ? window.auth.currentUser.policyNo : 'VG-EV-99201'}" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white font-mono uppercase outline-none focus:border-red-400">
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-mono uppercase text-slate-400 mb-1">Message Brief</label>
+              <textarea id="contact-msg" rows="4" required class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white outline-none focus:border-red-400" placeholder="Please elaborate on your inquiry or specific vehicle requirements...">I would like to request an inspection certificate for our newly registered vehicle fleet and confirm the cashless garage coverage near our logistics depot.</textarea>
+            </div>
+
+            <div class="pt-2 flex flex-col sm:flex-row gap-3">
+              <button type="submit" class="flex-1 py-3 rounded-xl btn-pill-red text-xs uppercase tracking-widest font-bold flex items-center justify-center gap-2">
+                <i data-lucide="send" class="w-4 h-4"></i>
+                <span>SUBMIT ADVISORY TICKET</span>
+              </button>
+              <button type="button" onclick="downloadCalendarInvite()" class="px-4 py-3 rounded-xl bg-slate-950 border border-slate-700 hover:border-slate-500 text-xs font-mono uppercase text-slate-300 hover:text-white flex items-center justify-center gap-2 transition-all">
+                <i data-lucide="calendar" class="w-4 h-4 text-red-400"></i>
+                <span>Download .ICS Callback</span>
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Right: Global Command Hubs (5 Cols) -->
+        <div class="lg:col-span-5 space-y-6">
+          <div class="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-4">
+            <h4 class="font-display font-bold text-white text-base flex items-center gap-2">
+              <i data-lucide="globe" class="w-5 h-5 text-red-400"></i>
+              <span>Regional Command Centers</span>
+            </h4>
+
+            <div class="space-y-3.5 text-xs">
+              <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 flex items-start justify-between">
+                <div>
+                  <div class="font-bold text-white flex items-center gap-2">
+                    <span>New York (North American HQ)</span>
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                  </div>
+                  <p class="text-[11px] text-slate-400 mt-0.5">One World Trade Center, Floor 68, NY 10007</p>
+                  <p class="text-[11px] font-mono text-red-400 mt-1">+1 (212) 555-8900 &bull; Open 24/7</p>
+                </div>
+                <span class="text-[10px] font-mono text-emerald-400 bg-emerald-950 px-2 py-0.5 rounded">ACTIVE</span>
+              </div>
+
+              <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 flex items-start justify-between">
+                <div>
+                  <div class="font-bold text-white flex items-center gap-2">
+                    <span>London (European Division)</span>
+                    <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                  </div>
+                  <p class="text-[11px] text-slate-400 mt-0.5">The Leadenhall Building, 122 Leadenhall St, London EC3V 4AB</p>
+                  <p class="text-[11px] font-mono text-red-400 mt-1">+44 20 7946 0192 &bull; Open 24/7</p>
+                </div>
+                <span class="text-[10px] font-mono text-emerald-400 bg-emerald-950 px-2 py-0.5 rounded">ACTIVE</span>
+              </div>
+
+              <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 flex items-start justify-between">
+                <div>
+                  <div class="font-bold text-white flex items-center gap-2">
+                    <span>Singapore (Asia-Pacific Command)</span>
+                    <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                  </div>
+                  <p class="text-[11px] text-slate-400 mt-0.5">Marina Bay Financial Centre, Tower 2, Singapore 018983</p>
+                  <p class="text-[11px] font-mono text-red-400 mt-1">+65 6789 0122 &bull; Open 24/7</p>
+                </div>
+                <span class="text-[10px] font-mono text-emerald-400 bg-emerald-950 px-2 py-0.5 rounded">ACTIVE</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="p-6 rounded-2xl bg-gradient-to-tr from-cyan-950/40 via-slate-900 to-slate-950 border border-red-500/40 text-left space-y-2">
+            <div class="flex items-center gap-2 text-red-400 font-bold text-xs uppercase font-mono">
+              <i data-lucide="shield-check" class="w-4 h-4"></i>
+              <span>Guaranteed 14-Minute Escalation SLA</span>
+            </div>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Every inquiry is routed directly to a credentialed loss adjuster with authority to approve up to $10,000 in cashless repair disbursements without committee delay.
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-[#05080f] border-t border-slate-800/80 pt-12 pb-8 text-slate-400 text-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-2">
+        <img src="assets/images/logo-icon.webp" alt="Vanguard" class="w-5 h-5">
+        <span class="font-display font-bold text-white">STACKLY MOTOR & MOBILITY ASSURE</span>
+      </div>
+      <p class="text-[11px] text-slate-500">&copy; 2026 Vanguard Mobility Underwriting Ltd. 24/7 Roadside SOS Hotline.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    function launchWhatsAppSimulation() {
+      if (window.showToast) window.showToast('WhatsApp Concierge initiated! Connecting with Vanguard Bot...', 'info');
+      if (window.playHapticSound) window.playHapticSound('click');
+      setTimeout(() => {
+        window.open('https://api.whatsapp.com/send?phone=15558264827&text=Hello%20Vanguard%20SOS%20Team%2C%20I%20need%20assistance%20with%20my%20vehicle%20policy', '_blank');
+      }, 600);
+    }
+
+    function handleInquirySubmit(e) {
+      e.preventDefault();
+      const ticketId = 'TKT-VG-' + Math.floor(10000 + Math.random() * 90000);
+      if (window.showToast) window.showToast(`Advisory ticket ${ticketId} registered! Priority advisor assigned.`, 'success');
+      if (window.playHapticSound) window.playHapticSound('success');
+      document.getElementById('contact-inquiry-form').reset();
+    }
+
+    function downloadCalendarInvite() {
+      const icsData = `BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Vanguard Auto//Motor Assure Concierge//EN
+BEGIN:VEVENT
+SUMMARY:Vanguard Motor Assure - Priority Underwriter Advisory Call
+DESCRIPTION:Scheduled consultation with Senior Loss Adjuster regarding vehicle policy and cashless garage coverage.
+STATUS:CONFIRMED
+BEGIN:VALARM
+TRIGGER:-PT15M
+ACTION:DISPLAY
+DESCRIPTION:Reminder: Vanguard Motor Call
+END:VALARM
+END:VEVENT
+END:VCALENDAR`;
+
+      const blob = new Blob([icsData], { type: 'text/calendar;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'Vanguard-Advisory-Callback.ics';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+
+      if (window.showToast) window.showToast('Calendar callback (.ICS) downloaded!', 'success');
+      if (window.playHapticSound) window.playHapticSound('click');
+    }
+  </script>
+</body>
+</html>

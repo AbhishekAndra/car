@@ -1,0 +1,19 @@
+{
+  "name": "vanguard-vehicle-insurance-platform",
+  "version": "1.0.0",
+  "description": "Vanguard Motor Assure - Next-Generation Vehicle Insurance & Mobility Protection Platform",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "vehicle-insurance",
+    "motor-insurance",
+    "car-insurance",
+    "telematics",
+    "claims",
+    "threejs",
+    "gsap"
+  ],
+  "author": "Vanguard Motor Assure",
+  "license": "MIT"
+}

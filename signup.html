@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" class="antialiased selection:bg-red-500 selection:text-white">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Driver Onboarding & Account Registration | STACKLY MOTOR</title>
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              cyan: '#00f0ff',
+              blue: '#2563eb',
+              indigo: '#4f46e5',
+              dark: '#070b14',
+              surface: '#0d1527',
+              border: '#1e293b'
+            }
+          },
+          fontFamily: {
+            display: ['"Space Grotesk"', 'sans-serif'],
+            sans: ['"Plus Jakarta Sans"', 'Inter', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+  <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-[#070b14] text-slate-100 font-sans min-h-screen flex flex-col justify-between">
+
+  <!-- Top Simple Navigation -->
+  <header class="py-6 px-6 sm:px-12 flex items-center justify-between">
+    <a href="index.html" class="flex items-center gap-3 group">
+      <img src="assets/images/logo.webp" alt="Stackly" class="h-8 sm:h-9 w-auto object-contain drop-shadow-[0_2px_16px_rgba(239,68,68,0.45)]">
+    </a>
+    <a href="login.html" class="text-xs font-mono uppercase tracking-wider text-slate-400 hover:text-red-400 flex items-center gap-1">
+      Already a Member? <span class="text-red-400 underline ml-1">Sign In</span>
+    </a>
+  </header>
+
+  <!-- Signup Form Container -->
+  <main class="flex-1 flex items-center justify-center p-4">
+    <div class="w-full max-w-lg p-8 rounded-3xl bg-[#0b080b]/90 border border-red-500/40 shadow-[0_25px_70px_rgba(0,0,0,0.9),0_0_35px_rgba(239,68,68,0.25)] backdrop-blur-2xl space-y-6 relative overflow-hidden">
+      <!-- Ambient Crimson Glow Halo -->
+      <div class="absolute -top-12 -right-12 w-36 h-36 bg-red-600/20 rounded-full blur-3xl pointer-events-none"></div>
+      
+      <div class="text-center space-y-1">
+        <span class="text-[10px] font-mono uppercase tracking-[0.3em] text-red-400">MEMBERSHIP ENROLLMENT</span>
+        <h2 class="font-display text-2xl font-bold text-white">ISSUE YOUR VEHICLE SHIELD</h2>
+        <p class="text-xs text-slate-400">Connect your vehicle and unlock instant cashless claim protection.</p>
+      </div>
+
+      <form id="signup-form" class="space-y-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-[11px] font-mono uppercase text-slate-400 mb-1">Full Legal Name</label>
+            <input type="text" id="signup-name" required placeholder="Alexander Wright" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-xs text-white outline-none focus:border-red-500">
+          </div>
+          <div>
+            <label class="block text-[11px] font-mono uppercase text-slate-400 mb-1">Mobile Phone Number</label>
+            <input type="tel" id="signup-phone" required placeholder="+1 (555) 234-5678" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-xs text-white outline-none focus:border-red-500 font-mono">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-[11px] font-mono uppercase text-slate-400 mb-1">Email Address</label>
+          <input type="email" id="signup-email" required placeholder="alexander@domain.com" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-xs text-white outline-none focus:border-red-500 font-mono">
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-[11px] font-mono uppercase text-slate-400 mb-1">Insured Vehicle Make & Model</label>
+            <input type="text" id="signup-vehicle" required placeholder="2025 Ferrari SF90 Stradale" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-xs text-white outline-none focus:border-red-500">
+          </div>
+          <div>
+            <label class="block text-[11px] font-mono uppercase text-slate-400 mb-1">Registration Plate / VIN</label>
+            <input type="text" id="signup-reg" required placeholder="FER-SF90-01" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-xs text-white outline-none focus:border-red-500 font-mono uppercase">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-[11px] font-mono uppercase text-slate-400 mb-1">Account Password</label>
+          <input type="password" id="signup-password" required placeholder="Create secure password" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-xs text-white outline-none focus:border-red-500 font-mono">
+        </div>
+
+        <div class="flex items-center gap-2 pt-2 text-xs text-slate-400">
+          <input type="checkbox" required id="terms-check" checked class="accent-red-500 rounded">
+          <label for="terms-check" class="text-[11px]">
+            I agree to the <a href="#" class="text-red-400 underline">Terms of Underwriting</a> and <a href="#" class="text-red-400 underline">Privacy Policy</a>.
+          </label>
+        </div>
+
+        <button type="submit" class="w-full py-3.5 rounded-xl btn-pill-red text-xs uppercase tracking-widest font-bold flex items-center justify-center gap-2 shadow-lg shadow-red-600/30">
+          <span>CREATE ACCOUNT & ISSUE POLICY</span>
+          <i data-lucide="check-circle" class="w-4 h-4"></i>
+        </button>
+      </form>
+
+      <div class="pt-4 border-t border-slate-800 text-center text-xs text-slate-400">
+        Already registered? <a href="login.html" class="text-red-400 hover:underline font-semibold">Sign In to Dashboard</a>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="py-6 text-center text-slate-600 text-[11px] font-mono">
+    &copy; 2026 Vanguard Motor Assure &bull; Real-time Policy Issuance Engine
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+</html>

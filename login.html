@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en" class="antialiased selection:bg-red-500 selection:text-white">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Policyholder Portal Login | STACKLY MOTOR</title>
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+  <link rel="alternate icon" type="image/svg+xml" href="assets/images/logo-icon.svg">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              red: '#ef4444',
+              darkRed: '#b91c1c',
+              dark: '#050508',
+              surface: '#0b080b',
+              border: '#2a1114'
+            }
+          },
+          fontFamily: {
+            display: ['"Space Grotesk"', 'sans-serif'],
+            sans: ['"Plus Jakarta Sans"', 'Inter', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+  <!-- Lenis & Lucide CDN -->
+  <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-[#050508] text-slate-100 font-sans min-h-screen flex flex-col justify-between overflow-x-hidden">
+
+  <!-- Ambient Ferrari Red Underglow Orbs -->
+  <div class="fixed -top-40 left-1/4 w-[600px] h-[400px] bg-red-600/10 rounded-full blur-[160px] pointer-events-none"></div>
+  <div class="fixed -bottom-40 right-1/4 w-[500px] h-[500px] bg-red-950/20 rounded-full blur-[170px] pointer-events-none"></div>
+
+  <!-- MAIN NAVIGATION HEADER -->
+  <header class="sticky top-0 z-40 glass-header" id="main-header">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4 sm:gap-6">
+      <!-- Pure Red Brand Logo -->
+      <a href="index.html" class="flex items-center gap-3 shrink-0 group py-1">
+        <img src="assets/images/logo.webp" alt="Stackly" class="h-8 sm:h-9 md:h-10 w-auto object-contain transition-transform group-hover:scale-105 drop-shadow-[0_2px_16px_rgba(239,68,68,0.45)]">
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <nav class="hidden lg:flex items-center justify-center flex-1 max-w-2xl mx-auto px-2">
+        <div class="flex items-center justify-between w-full text-xs font-bold uppercase tracking-wider text-slate-300">
+          <a href="index.html" class="nav-link-callmy text-slate-300 hover:text-white">HOME</a>
+          <a href="about.html" class="nav-link-callmy text-slate-300 hover:text-white">ABOUT US</a>
+          <a href="services.html" class="nav-link-callmy text-slate-300 hover:text-white">SERVICES</a>
+          <a href="plans.html" class="nav-link-callmy text-slate-300 hover:text-white">PLANS & QUOTE</a>
+          <a href="claims.html" class="nav-link-callmy text-slate-300 hover:text-white">EXPRESS CLAIMS</a>
+          <a href="contact.html" class="nav-link-callmy text-slate-300 hover:text-white">CONTACT</a>
+          <a href="dashboard.html" class="nav-link-callmy text-red-400 hover:text-red-300 font-bold">PORTAL</a>
+        </div>
+      </nav>
+
+      <!-- Return Link -->
+      <div class="flex items-center gap-3">
+        <a href="index.html" class="px-4 py-2 rounded-full border border-red-900/60 hover:border-red-500 bg-black/60 text-xs font-mono uppercase tracking-wider text-slate-300 hover:text-white transition-all flex items-center gap-1.5 backdrop-blur-md">
+          <i data-lucide="arrow-left" class="w-3.5 h-3.5 text-red-400"></i>
+          <span class="hidden sm:inline">Back to</span> Homepage
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- SPLIT LOGIN STAGE -->
+  <main class="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 w-full flex items-center justify-center">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 w-full items-center">
+      
+      <!-- Left Column: Editorial Ferrari Visual Showcase & Security Verification -->
+      <div class="hidden lg:flex lg:col-span-6 flex-col justify-between space-y-8 relative">
+        <div class="relative rounded-3xl overflow-hidden border border-red-500/30 bg-[#080507] shadow-[0_25px_60px_rgba(0,0,0,0.95)]">
+          <img src="assets/images/ferrari-track-racing.webp" alt="Scuderia Ferrari Telemetry" class="w-full h-80 object-cover object-center filter brightness-90">
+          <div class="absolute inset-0 bg-gradient-to-t from-[#080507] via-black/40 to-transparent"></div>
+          
+          <!-- Floating Status Pills -->
+          <div class="absolute top-4 left-4 right-4 flex items-center justify-between">
+            <span class="px-3 py-1 rounded-full bg-black/85 border border-red-500/50 text-[10px] font-mono text-red-300 backdrop-blur-md flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-red-500 animate-ping"></span>
+              <span>MARANELLO SECURE VAULT</span>
+            </span>
+            <span class="px-2.5 py-1 rounded-full bg-black/85 border border-white/10 text-[10px] font-mono text-slate-300 backdrop-blur-md">
+              TLS 1.3 &bull; 256-BIT
+            </span>
+          </div>
+
+          <!-- Overlay Caption -->
+          <div class="absolute bottom-4 left-5 right-5 text-left">
+            <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-red-950/90 border border-red-500/40 text-[10px] font-mono text-red-300 mb-1.5">
+              <span>ACTIVE COVERAGE PROTOCOL</span>
+            </div>
+            <h3 class="font-display text-xl font-bold text-white uppercase">Autonomous Supercar Policy Vault</h3>
+            <p class="text-xs text-slate-300 font-sans mt-1 line-clamp-2">
+              Instant telematics synchronization, guaranteed agreed-value settlements, and cashless workshop clearance.
+            </p>
+          </div>
+        </div>
+
+        <!-- 3 Security Proof Pillars -->
+        <div class="grid grid-cols-3 gap-3">
+          <div class="p-3.5 rounded-2xl bg-[#0b080b] border border-red-950/80 text-left">
+            <i data-lucide="shield-check" class="w-5 h-5 text-red-500 mb-1.5"></i>
+            <div class="text-xs font-bold text-white">0% Depreciation</div>
+            <p class="text-[10px] font-mono text-slate-400 mt-0.5">100% Maranello OEM parts</p>
+          </div>
+          <div class="p-3.5 rounded-2xl bg-[#0b080b] border border-red-950/80 text-left">
+            <i data-lucide="zap" class="w-5 h-5 text-red-500 mb-1.5"></i>
+            <div class="text-xs font-bold text-white">Instant Payout</div>
+            <p class="text-[10px] font-mono text-slate-400 mt-0.5">Automated claim settlement</p>
+          </div>
+          <div class="p-3.5 rounded-2xl bg-[#0b080b] border border-red-950/80 text-left">
+            <i data-lucide="truck" class="w-5 h-5 text-red-500 mb-1.5"></i>
+            <div class="text-xs font-bold text-white">&lt; 18m Flatbed</div>
+            <p class="text-[10px] font-mono text-slate-400 mt-0.5">Hydraulic zero-scratch SOS</p>
+          </div>
+        </div>
+
+        <!-- Verified Testimonial Quote -->
+        <div class="p-4 rounded-2xl bg-black/60 border border-red-950/60 flex items-start gap-3 text-left">
+          <img src="assets/images/client-vip-1.webp" alt="Alexander Wright" class="w-10 h-10 rounded-full object-cover border border-red-500/40 shrink-0">
+          <div>
+            <p class="text-xs text-slate-300 italic">
+              "Stackly settled my Ferrari SF90 carbon-ceramic rotor replacement in 48 hours without a single deductible dispute."
+            </p>
+            <div class="text-[10px] font-mono text-red-400 mt-1 font-bold">
+              Alexander Wright &bull; SF90 Assetto Fiorano &bull; VIP Member
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Glassmorphic Authentication Console -->
+      <div class="lg:col-span-6 flex justify-center w-full">
+        <div class="w-full max-w-lg p-6 sm:p-8 rounded-3xl bg-[#0b080b]/95 border border-red-500/40 shadow-[0_30px_90px_rgba(0,0,0,0.95),0_0_35px_rgba(239,68,68,0.25)] backdrop-blur-2xl space-y-6 relative overflow-hidden">
+          
+          <!-- Ambient Crimson Glow Accent -->
+          <div class="absolute -top-12 -right-12 w-40 h-40 bg-red-600/20 rounded-full blur-3xl pointer-events-none"></div>
+
+          <!-- Header -->
+          <div class="text-left space-y-1">
+            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-red-950/80 border border-red-500/40 text-[10px] font-mono text-red-300">
+              <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
+              <span>SCUDERIA VIP POLICYHOLDER ACCESS</span>
+            </div>
+            <h1 class="font-display text-2xl sm:text-3xl font-extrabold text-white tracking-tight uppercase">
+              MEMBER LOGIN
+            </h1>
+            <p class="text-xs text-slate-400 font-sans">
+              Sign in to monitor real-time vehicle telematics, manage agreed-value policies, or file express claims.
+            </p>
+          </div>
+
+          <!-- 1-Click Demo Persona Quick Switcher Cards -->
+          <div class="space-y-2 p-3.5 rounded-2xl bg-black/80 border border-red-950/80">
+            <div class="flex items-center justify-between">
+              <span class="text-[10px] font-mono uppercase tracking-wider text-red-400 font-bold flex items-center gap-1">
+                <i data-lucide="sparkles" class="w-3 h-3"></i>
+                <span>One-Click Ferrari VIP Demo Accounts:</span>
+              </span>
+              <span class="text-[9px] font-mono text-slate-500">Tap to load</span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+              
+              <!-- Persona 0: Alexander Wright (SF90) -->
+              <button type="button" onclick="quickFillPersona(0)" id="persona-btn-0" class="persona-card-btn active p-2.5 rounded-xl bg-slate-900/90 border border-red-500/60 hover:border-red-400 text-left transition-all group shadow-[0_0_15px_rgba(239,68,68,0.2)]">
+                <div class="flex items-center justify-between mb-1">
+                  <span class="text-[11px] font-bold text-white group-hover:text-red-400 truncate">Alexander W.</span>
+                  <span class="w-2 h-2 rounded-full bg-red-500"></span>
+                </div>
+                <div class="text-[9px] font-mono text-red-400 truncate">SF90 Stradale</div>
+                <div class="text-[8px] font-mono text-slate-400 truncate">$585K &bull; 99 Score</div>
+              </button>
+
+              <!-- Persona 1: Elena Rostova (488 Pista) -->
+              <button type="button" onclick="quickFillPersona(1)" id="persona-btn-1" class="persona-card-btn p-2.5 rounded-xl bg-slate-900/50 border border-red-950/60 hover:border-red-500 text-left transition-all group">
+                <div class="flex items-center justify-between mb-1">
+                  <span class="text-[11px] font-bold text-white group-hover:text-red-400 truncate">Elena Rostova</span>
+                  <span class="w-2 h-2 rounded-full bg-slate-700 group-hover:bg-red-400"></span>
+                </div>
+                <div class="text-[9px] font-mono text-red-400 truncate">488 Pista V8</div>
+                <div class="text-[8px] font-mono text-slate-400 truncate">$340K &bull; 95 Score</div>
+              </button>
+
+              <!-- Persona 2: Marcus Vance (Roma GT) -->
+              <button type="button" onclick="quickFillPersona(2)" id="persona-btn-2" class="persona-card-btn p-2.5 rounded-xl bg-slate-900/50 border border-red-950/60 hover:border-red-500 text-left transition-all group">
+                <div class="flex items-center justify-between mb-1">
+                  <span class="text-[11px] font-bold text-white group-hover:text-red-400 truncate">Marcus Vance</span>
+                  <span class="w-2 h-2 rounded-full bg-slate-700 group-hover:bg-red-400"></span>
+                </div>
+                <div class="text-[9px] font-mono text-red-400 truncate">Roma GT Solaire</div>
+                <div class="text-[8px] font-mono text-slate-400 truncate">$325K &bull; 98 Score</div>
+              </button>
+
+            </div>
+          </div>
+
+          <!-- Main Login Form -->
+          <form id="login-form" class="space-y-4 text-left">
+            
+            <!-- Email Input -->
+            <div>
+              <label for="login-email" class="block text-[11px] font-mono uppercase tracking-wider text-slate-400 mb-1.5">
+                Policyholder Email Address
+              </label>
+              <div class="relative">
+                <i data-lucide="mail" class="w-4 h-4 text-red-400 absolute left-3.5 top-3.5"></i>
+                <input 
+                  type="email" 
+                  id="login-email" 
+                  name="email" 
+                  required 
+                  placeholder="alexander.wright@ferrari-vip.io" 
+                  value="alexander.wright@ferrari-vip.io" 
+                  class="w-full bg-[#050508] border border-red-950/80 rounded-xl pl-10 pr-10 py-3 text-xs sm:text-sm text-white placeholder-slate-600 outline-none focus:border-red-500 font-mono transition-colors shadow-inner">
+                <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400 absolute right-3.5 top-3.5"></i>
+              </div>
+            </div>
+
+            <!-- Password Input with Toggle -->
+            <div>
+              <div class="flex items-center justify-between mb-1.5">
+                <label for="login-password" class="text-[11px] font-mono uppercase tracking-wider text-slate-400">
+                  Password / Passkey
+                </label>
+                <button type="button" onclick="openForgotPasswordModal()" class="text-[11px] text-red-400 hover:text-red-300 font-mono underline hover:no-underline">
+                  Forgot Password?
+                </button>
+              </div>
+              <div class="relative">
+                <i data-lucide="lock" class="w-4 h-4 text-red-400 absolute left-3.5 top-3.5"></i>
+                <input 
+                  type="password" 
+                  id="login-password" 
+                  name="password" 
+                  required 
+                  value="scuderiaVIP2026" 
+                  class="w-full bg-[#050508] border border-red-950/80 rounded-xl pl-10 pr-10 py-3 text-xs sm:text-sm text-white placeholder-slate-600 outline-none focus:border-red-500 font-mono transition-colors shadow-inner">
+                
+                <!-- Show / Hide Password Button -->
+                <button type="button" onclick="togglePasswordVisibility()" class="absolute right-3.5 top-3.5 text-slate-400 hover:text-white transition-colors" title="Toggle password visibility">
+                  <i data-lucide="eye" id="password-toggle-icon" class="w-4 h-4"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Remember Me & Security Status -->
+            <div class="flex items-center justify-between text-xs font-mono text-slate-400 pt-1">
+              <label class="flex items-center gap-2 cursor-pointer select-none">
+                <input type="checkbox" id="remember-me" checked class="w-4 h-4 rounded bg-[#050508] border-red-900 text-red-600 focus:ring-red-500 accent-red-600">
+                <span>Remember console for 30 days</span>
+              </label>
+              <span class="text-emerald-400 text-[10px] hidden sm:inline flex items-center gap-1">
+                <i data-lucide="shield" class="w-3 h-3"></i> 256-Bit SSL
+              </span>
+            </div>
+
+            <!-- Biometric Passkey / FaceID Button -->
+            <button type="button" onclick="simulateBiometricScan()" class="w-full py-2.5 rounded-xl bg-black/70 border border-red-500/30 hover:border-red-400 text-slate-300 hover:text-white text-xs font-mono flex items-center justify-center gap-2 transition-all shadow hover:shadow-[0_0_15px_rgba(239,68,68,0.25)]">
+              <i data-lucide="fingerprint" class="w-4 h-4 text-red-400"></i>
+              <span>Authenticate via Passkey / FaceID</span>
+            </button>
+
+            <!-- Submit Button -->
+            <button type="submit" id="login-submit-btn" class="w-full py-3.5 rounded-xl btn-pill-red text-xs uppercase tracking-widest font-extrabold flex items-center justify-center gap-2 shadow-[0_10px_30px_rgba(220,38,38,0.65)] hover:shadow-[0_15px_40px_rgba(220,38,38,0.85)]">
+              <span>SIGN IN TO VEHICLE CONSOLE</span>
+              <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </button>
+          </form>
+
+          <!-- Register Footnote -->
+          <div class="pt-4 border-t border-red-950/70 text-center text-xs text-slate-400 font-sans">
+            Don't have a Stackly Ferrari policy yet? 
+            <a href="signup.html" class="text-red-400 hover:text-red-300 font-bold hover:underline ml-1">
+              Create VIP Account
+            </a>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- FORGOT PASSWORD MODAL -->
+  <div id="forgot-password-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden items-center justify-center p-4">
+    <div class="w-full max-w-md p-6 rounded-3xl bg-[#0b080b] border border-red-500/40 shadow-2xl space-y-4 text-left relative">
+      <div class="flex items-center justify-between pb-3 border-b border-red-950/70">
+        <div class="flex items-center gap-2 text-red-400 text-xs font-mono font-bold">
+          <i data-lucide="key" class="w-4 h-4"></i>
+          <span>RESET VIP ACCESS KEY</span>
+        </div>
+        <button onclick="closeForgotPasswordModal()" class="text-slate-400 hover:text-white">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+      <p class="text-xs text-slate-300">
+        Enter your verified policyholder email address. We will dispatch an encrypted one-time access token to your registered Ferrari mobile app.
+      </p>
+      <div>
+        <label class="block text-[10px] font-mono uppercase text-slate-400 mb-1">Registered Email</label>
+        <input type="email" id="forgot-email-input" value="alexander.wright@ferrari-vip.io" class="w-full bg-[#050508] border border-red-950 rounded-xl px-3.5 py-2.5 text-xs text-white font-mono outline-none focus:border-red-500">
+      </div>
+      <div class="flex items-center justify-end gap-2 pt-2">
+        <button type="button" onclick="closeForgotPasswordModal()" class="px-4 py-2 rounded-xl bg-slate-900 text-xs font-mono text-slate-300 hover:text-white">
+          Cancel
+        </button>
+        <button type="button" onclick="handleForgotPasswordSubmit()" class="btn-pill-red px-5 py-2 text-xs uppercase font-bold tracking-wider">
+          Send Recovery Link
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="py-6 border-t border-red-950/50 bg-[#050508] text-center text-slate-500 text-[11px] font-mono">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
+      <p>&copy; 2026 STACKLY MOTOR &bull; Maranello Supercar Underwriting Protocol</p>
+      <div class="flex items-center gap-4 text-slate-400">
+        <span class="flex items-center gap-1 text-emerald-400"><i data-lucide="shield-check" class="w-3.5 h-3.5"></i> SSL Encrypted</span>
+        <span>&bull;</span>
+        <a href="contact.html" class="hover:text-red-400">24/7 Maranello Concierge</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/main.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    // Quick-Fill Demo Personas
+    function quickFillPersona(idx) {
+      if (typeof DEMO_PERSONAS === 'undefined' || !DEMO_PERSONAS[idx]) return;
+      const p = DEMO_PERSONAS[idx];
+
+      const emailInput = document.getElementById('login-email');
+      const passInput = document.getElementById('login-password');
+      if (emailInput) emailInput.value = p.email;
+      if (passInput) passInput.value = 'scuderiaVIP2026';
+
+      // Update button styling states
+      document.querySelectorAll('.persona-card-btn').forEach((btn, i) => {
+        if (i === idx) {
+          btn.classList.add('border-red-500/60', 'bg-slate-900/90', 'shadow-[0_0_15px_rgba(239,68,68,0.2)]');
+          btn.classList.remove('border-red-950/60', 'bg-slate-900/50');
+        } else {
+          btn.classList.remove('border-red-500/60', 'bg-slate-900/90', 'shadow-[0_0_15px_rgba(239,68,68,0.2)]');
+          btn.classList.add('border-red-950/60', 'bg-slate-900/50');
+        }
+      });
+
+      if (window.playHapticSound) window.playHapticSound('click');
+      if (window.showToast) window.showToast(`Selected Persona: ${p.name} (${p.vehicle.split('(')[0]})`, 'info');
+    }
+
+    // Toggle Password Visibility
+    function togglePasswordVisibility() {
+      const passInput = document.getElementById('login-password');
+      const icon = document.getElementById('password-toggle-icon');
+      if (!passInput) return;
+
+      if (passInput.type === 'password') {
+        passInput.type = 'text';
+        if (icon) icon.setAttribute('data-lucide', 'eye-off');
+      } else {
+        passInput.type = 'password';
+        if (icon) icon.setAttribute('data-lucide', 'eye');
+      }
+      if (window.lucide) window.lucide.createIcons();
+      if (window.playHapticSound) window.playHapticSound('click');
+    }
+
+    // Simulate Biometric Scan
+    function simulateBiometricScan() {
+      if (window.playHapticSound) window.playHapticSound('scan');
+      if (window.showToast) window.showToast('Scanning Biometric FaceID & Maranello Passkey...', 'info');
+      
+      const submitBtn = document.getElementById('login-submit-btn');
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = `
+          <span class="inline-block w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+          <span>AUTHENTICATING BIOMETRIC PASSKEY...</span>
+        `;
+      }
+
+      setTimeout(() => {
+        if (window.playHapticSound) window.playHapticSound('success');
+        if (window.showToast) window.showToast('FaceID Verified! Redirecting to vehicle console...', 'success');
+        
+        const email = document.getElementById('login-email').value || 'alexander.wright@ferrari-vip.io';
+        window.auth.login(email, 'biometric');
+        
+        setTimeout(() => {
+          window.location.href = 'dashboard.html';
+        }, 700);
+      }, 1300);
+    }
+
+    // Forgot Password Flow
+    function openForgotPasswordModal() {
+      const modal = document.getElementById('forgot-password-modal');
+      if (modal) {
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+      }
+      if (window.playHapticSound) window.playHapticSound('click');
+    }
+
+    function closeForgotPasswordModal() {
+      const modal = document.getElementById('forgot-password-modal');
+      if (modal) {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      }
+    }
+
+    function handleForgotPasswordSubmit() {
+      const email = document.getElementById('forgot-email-input').value;
+      closeForgotPasswordModal();
+      if (window.playHapticSound) window.playHapticSound('success');
+      if (window.showToast) window.showToast(`Encrypted VIP access link sent to ${email}`, 'success');
+    }
+  </script>
+</body>
+</html>

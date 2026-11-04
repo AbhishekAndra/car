@@ -1,0 +1,529 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&display=swap');
+
+:root {
+  --color-brand-cyan: #ef4444;
+  --color-brand-blue: #dc2626;
+  --color-brand-indigo: #991b1b;
+  --color-brand-dark: #050508;
+  --color-brand-card: #0c0c10;
+  --color-brand-border: #2a1114;
+  --color-brand-emerald: #10b981;
+  --color-brand-amber: #f59e0b;
+  --color-brand-rose: #ef4444;
+  --color-ferrari-red: #ef4444;
+  --color-ferrari-dark: #b91c1c;
+}
+
+html {
+  scroll-behavior: auto !important;
+  background-color: #050508;
+  color: #f8fafc;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+}
+
+body {
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+  background-color: #050508;
+  min-height: 100vh;
+}
+
+/* Persistent Subtle Automotive Carbon Film Grain Overlay */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 9995;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+  opacity: 0.65;
+}
+
+/* Global Top Reading / Scroll Progress Bar */
+#global-scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2.5px;
+  width: 0%;
+  background: linear-gradient(90deg, #ef4444 0%, #dc2626 50%, #f43f5e 100%);
+  z-index: 10001;
+  pointer-events: none;
+  transition: width 0.08s ease-out;
+  box-shadow: 0 0 14px rgba(239, 68, 68, 0.9);
+}
+
+::selection {
+  background-color: #ef4444;
+  color: #ffffff;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #050508;
+}
+::-webkit-scrollbar-thumb {
+  background: #261114;
+  border-radius: 9999px;
+  border: 1px solid #3b1419;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #ef4444;
+}
+
+/* Typography Helpers */
+.font-display {
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+}
+.font-sans {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+}
+.font-mono {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Lenis Smooth Scroll Global Normalization */
+html.lenis, html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+/* Glassmorphic Panels */
+.glass-panel {
+  background: rgba(13, 21, 39, 0.72);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-panel-glow, .glass-panel-red-glow {
+  background: rgba(18, 10, 12, 0.82);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  box-shadow: 0 0 25px rgba(239, 68, 68, 0.12);
+}
+
+.glass-card-hover {
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.glass-card-hover:hover {
+  transform: translateY(-4px);
+  border-color: rgba(239, 68, 68, 0.6);
+  box-shadow: 0 16px 36px -10px rgba(239, 68, 68, 0.25);
+}
+
+/* Glowing Button Effects */
+.btn-cyan-glow, .btn-red-glow {
+  background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%);
+  color: #ffffff;
+  font-weight: 700;
+  box-shadow: 0 0 24px rgba(239, 68, 68, 0.55);
+  transition: all 0.3s ease;
+}
+.btn-cyan-glow:hover, .btn-red-glow:hover {
+  box-shadow: 0 0 35px rgba(239, 68, 68, 0.85);
+  transform: translateY(-1px);
+}
+
+/* Pulse radar circle */
+@keyframes radarPing {
+  0% { transform: scale(0.95); opacity: 0.8; }
+  50% { transform: scale(1.4); opacity: 0.1; }
+  100% { transform: scale(0.95); opacity: 0.8; }
+}
+.radar-pulse {
+  animation: radarPing 2.5s infinite cubic-bezier(0.4, 0, 0.6, 1);
+}
+
+/* Preloader */
+#luxury-preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #070b14;
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.7s;
+}
+
+.preloader-line {
+  width: 220px;
+  height: 2px;
+  background-color: rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+  border-radius: 9999px;
+  margin-top: 20px;
+}
+
+.preloader-progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 0%;
+  background: linear-gradient(90deg, #ef4444, #dc2626);
+  transition: width 0.15s ease-out;
+  box-shadow: 0 0 12px #ef4444;
+}
+
+/* Range input styled */
+input[type=range] {
+  -webkit-appearance: none;
+  background: #1e293b;
+  height: 6px;
+  border-radius: 4px;
+  outline: none;
+}
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 18px;
+  width: 18px;
+  border-radius: 50%;
+  background: #00f0ff;
+  box-shadow: 0 0 10px rgba(0, 240, 255, 0.8);
+  cursor: pointer;
+  transition: transform 0.1s ease;
+}
+input[type=range]::-webkit-slider-thumb:hover {
+  transform: scale(1.25);
+}
+
+/* AI Detection Scanner Bounding Box */
+.ai-box {
+  position: absolute;
+  border: 2px dashed #00f0ff;
+  background-color: rgba(0, 240, 255, 0.12);
+  animation: boxPulse 2s infinite ease-in-out;
+}
+@keyframes boxPulse {
+  0%, 100% { border-color: #00f0ff; }
+  50% { border-color: #38bdf8; }
+}
+
+/* Toast Container */
+#toast-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 10010;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  pointer-events: none;
+}
+.toast-msg {
+  pointer-events: auto;
+  min-width: 300px;
+  padding: 14px 18px;
+  border-radius: 12px;
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 240, 255, 0.3);
+  color: #f8fafc;
+  font-size: 13px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transform: translateY(20px);
+  opacity: 0;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.toast-msg.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* ========================================================
+   CALLMY DRIVER LUXURY THEME EXTENSION
+   Matching Reference Mockup: Deep Obsidian, Royal Cobalt,
+   Vibrant Gold Italic, Studio Sports Car & Floating Card
+   ======================================================== */
+
+.bg-obsidian {
+  background-color: #050508;
+}
+
+/* CallMy Driver Reference Mockup Typography & Black & Red Ferrari Palette */
+.hero-callmy-accent, .hero-gold-accent, .hero-red-accent {
+  font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  font-style: italic;
+  font-weight: 800;
+  color: #ef4444;
+  display: inline-block;
+  text-shadow: 0 0 35px rgba(239, 68, 68, 0.75), 0 0 15px rgba(220, 38, 38, 0.95);
+  letter-spacing: -0.01em;
+}
+
+/* Pill Button - Ferrari Rosso Corsa Red */
+.btn-pill-red, .btn-pill-blue, .btn-pill-callmy {
+  background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%);
+  color: #ffffff;
+  border-radius: 9999px;
+  font-weight: 700;
+  transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 8px 25px -4px rgba(220, 38, 38, 0.65);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.btn-pill-red:hover, .btn-pill-blue:hover, .btn-pill-callmy:hover {
+  background: linear-gradient(135deg, #f87171 0%, #dc2626 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 14px 34px -2px rgba(239, 68, 68, 0.85);
+  color: #ffffff;
+}
+
+.btn-pill-red:active, .btn-pill-blue:active, .btn-pill-callmy:active {
+  transform: translateY(0);
+}
+
+/* Active Navigation Red Underline (Pure Ferrari Red) */
+.nav-link-callmy {
+  position: relative;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #cbd5e1;
+  transition: all 0.25s ease;
+  padding: 8px 12px;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-link-callmy:hover {
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.06);
+}
+
+.nav-link-callmy.active {
+  color: #ffffff;
+  background-color: rgba(239, 68, 68, 0.12);
+}
+
+.nav-link-callmy.active::after {
+  content: '';
+  position: absolute;
+  bottom: 2px;
+  left: 20%;
+  width: 60%;
+  height: 2.5px;
+  background-color: #ef4444;
+  border-radius: 9999px;
+  box-shadow: 0 0 14px rgba(239, 68, 68, 0.95);
+}
+
+/* Modern High-End Glassmorphism Header */
+.glass-header {
+  background: rgba(7, 5, 8, 0.65) !important;
+  backdrop-filter: blur(24px) saturate(190%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(190%) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.85), 0 1px 0 0 rgba(239, 68, 68, 0.2) !important;
+  transition: all 0.3s ease !important;
+}
+
+.glass-header.scrolled {
+  background: rgba(5, 4, 6, 0.9) !important;
+  backdrop-filter: blur(32px) saturate(200%) !important;
+  -webkit-backdrop-filter: blur(32px) saturate(200%) !important;
+  border-bottom: 1px solid rgba(239, 68, 68, 0.35) !important;
+  box-shadow: 0 14px 40px -10px rgba(0, 0, 0, 0.95), 0 0 30px rgba(239, 68, 68, 0.25) !important;
+}
+
+/* Glass Login Button */
+.nav-login-btn {
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(239, 68, 68, 0.45);
+  color: #ffffff;
+  border-radius: 9999px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 0 15px rgba(239, 68, 68, 0.15);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.nav-login-btn:hover {
+  background: rgba(239, 68, 68, 0.22);
+  border-color: #ef4444;
+  color: #ffffff;
+  transform: translateY(-1.5px);
+  box-shadow: 0 0 25px rgba(239, 68, 68, 0.5), 0 6px 20px -2px rgba(220, 38, 38, 0.4);
+}
+
+
+/* Legacy Floating Card Override (Enforces Black & Red Theme if referenced anywhere) */
+.floating-hero-card {
+  background-color: #0b080b;
+  color: #f8fafc;
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  border-radius: 20px;
+  padding: 16px 16px 22px 16px;
+  box-shadow: 0 30px 70px -15px rgba(0, 0, 0, 0.95), 0 0 25px rgba(239, 68, 68, 0.2);
+  position: relative;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+  max-width: 310px;
+  width: 100%;
+}
+
+.floating-hero-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(239, 68, 68, 0.7);
+  box-shadow: 0 35px 85px -12px rgba(220, 38, 38, 0.45);
+}
+
+/* Card Circle Scroll / Action Button (Matching Mockup's Dark Circle with Up Arrow) */
+.card-action-circle {
+  position: absolute;
+  right: -16px;
+  bottom: -16px;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background-color: #0b1528;
+  border: 3px solid #1e293b;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.7);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 20;
+}
+
+.card-action-circle:hover {
+  background-color: #ef4444;
+  border-color: #f87171;
+  transform: scale(1.1) translateY(-2px);
+  box-shadow: 0 16px 36px rgba(239, 68, 68, 0.65);
+}
+
+/* Bottom-Left Chat Badge (Matching Mockup with Green Dot) */
+.floating-chat-badge {
+  position: fixed;
+  bottom: 24px;
+  left: 24px;
+  z-index: 9980;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: rgba(11, 15, 25, 0.65);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.75);
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.floating-chat-badge:hover {
+  transform: scale(1.12);
+  border-color: #ef4444;
+  box-shadow: 0 0 22px rgba(239, 68, 68, 0.6);
+}
+
+.floating-chat-badge .chat-online-dot {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #22c55e;
+  box-shadow: 0 0 8px #22c55e;
+  border: 2px solid #0c080a;
+}
+
+/* Hero Car Image Blend & Reflection */
+.hero-car-stage {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.hero-car-stage img {
+  width: 100%;
+  max-width: 1100px;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 30px 50px rgba(220, 38, 38, 0.3)) drop-shadow(0 40px 60px rgba(0, 0, 0, 0.95)) contrast(1.08) saturate(1.15);
+  pointer-events: none;
+}
+
+/* Ferrari Glowing Badge */
+.ferrari-badge {
+  background: rgba(185, 28, 28, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.45);
+  color: #fca5a5;
+  box-shadow: 0 0 15px rgba(239, 68, 68, 0.15);
+}
+
+/* Hero Showcase Swiper Card with Full Background Images */
+.hero-swiper-card {
+  position: relative;
+  border-radius: 28px;
+  overflow: hidden;
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  box-shadow: 0 30px 80px -15px rgba(0, 0, 0, 0.95), 0 0 35px rgba(239, 68, 68, 0.2);
+  background: #080507;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, border-color 0.4s ease;
+}
+
+.hero-swiper-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(239, 68, 68, 0.7);
+  box-shadow: 0 35px 90px -12px rgba(220, 38, 38, 0.45), 0 0 50px rgba(239, 68, 68, 0.35);
+}
+
+.hero-showcase-swiper .swiper-pagination-bullet {
+  width: 7px;
+  height: 7px;
+  background-color: rgba(255, 255, 255, 0.45);
+  opacity: 1;
+  border-radius: 9999px;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  margin: 0 3px !important;
+  cursor: pointer;
+}
+
+.hero-showcase-swiper .swiper-pagination-bullet-active {
+  width: 26px;
+  background-color: #ef4444;
+  box-shadow: 0 0 12px rgba(239, 68, 68, 0.95);
+}
+
+

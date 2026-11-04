@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en" class="antialiased selection:bg-red-500 selection:text-white">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Premium Calculator & Policy Customizer | STACKLY MOTOR</title>
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              cyan: '#00f0ff',
+              blue: '#2563eb',
+              indigo: '#4f46e5',
+              dark: '#070b14',
+              surface: '#0d1527',
+              border: '#1e293b'
+            }
+          },
+          fontFamily: {
+            display: ['"Space Grotesk"', 'sans-serif'],
+            sans: ['"Plus Jakarta Sans"', 'Inter', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+  <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-[#070b14] text-slate-100 font-sans overflow-x-hidden">
+
+  <div id="global-scroll-progress"></div>
+
+  <!-- TOP TELEMETRY RIBBON -->
+  <div class="w-full bg-[#05080f] border-b border-slate-800/80 py-1.5 px-4 sm:px-8 text-[11px] font-mono text-slate-400 flex flex-wrap items-center justify-between gap-3 z-50 relative">
+    <div class="flex items-center gap-4 flex-wrap">
+      <div class="flex items-center gap-1.5 text-red-400">
+        <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
+        <span class="font-semibold">ACTUARIAL QUOTE ENGINE:</span> REAL-TIME TARIFF CALCULATOR
+      </div>
+      <span class="hidden md:inline text-slate-700">|</span>
+      <div class="hidden sm:flex items-center gap-1">
+        <i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-400"></i>
+        <span>ZERO BROKER COMMISSION</span>
+      </div>
+    </div>
+    <div class="flex items-center gap-4">
+      <div class="auth-telemetry-badge hidden"></div>
+      <div class="flex items-center gap-2">
+        <i data-lucide="clock" class="w-3.5 h-3.5 text-slate-500"></i>
+        <span class="live-telemetry-time text-slate-300">--:--:-- UTC</span>
+      </div>
+      <button class="trigger-sos-modal flex items-center gap-1 text-red-400 hover:text-red-300 font-bold tracking-wider px-2 py-0.5 rounded bg-red-950/60 border border-red-500/40">
+        <i data-lucide="siren" class="w-3 h-3"></i> 24/7 SOS
+      </button>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <!-- MAIN NAVIGATION HEADER (HIGH-END GLASSMORPHISM & BALANCED EQUIDISTANT NAV) -->
+  <header class="sticky top-0 z-40 glass-header" id="main-header">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4 sm:gap-6">
+      
+      <!-- Brand Logo (Pure Red Stackly Logo) -->
+      <a href="index.html" class="flex items-center gap-3 shrink-0 group py-1">
+        <img src="assets/images/logo.webp" alt="Stackly" class="h-8 sm:h-9 md:h-10 w-auto object-contain transition-transform group-hover:scale-105 drop-shadow-[0_2px_16px_rgba(239,68,68,0.45)]">
+      </a>
+
+      <!-- Desktop Nav (Balanced Equidistant Center Grid) -->
+      <nav class="hidden lg:flex items-center justify-center flex-1 max-w-2xl mx-auto px-2">
+        <div class="flex items-center justify-between w-full text-xs font-bold uppercase tracking-wider text-slate-300">
+          <a href="index.html" class="nav-link-callmy text-slate-300 hover:text-white">HOME</a>
+          <a href="about.html" class="nav-link-callmy text-slate-300 hover:text-white">ABOUT US</a>
+          <a href="services.html" class="nav-link-callmy text-slate-300 hover:text-white">SERVICES</a>
+          <a href="plans.html" class="nav-link-callmy active">PLANS & QUOTE</a>
+          <a href="claims.html" class="nav-link-callmy text-slate-300 hover:text-white">EXPRESS CLAIMS</a>
+          <a href="contact.html" class="nav-link-callmy text-slate-300 hover:text-white">CONTACT</a>
+          <a href="dashboard.html" class="nav-link-callmy text-red-400 hover:text-red-300 font-bold">PORTAL</a>
+        </div>
+      </nav>
+
+      <!-- Right Header Actions (Working LOGIN Button + GET STARTED Red Pill Button) -->
+      <div class="hidden sm:flex items-center gap-3 header-auth-actions shrink-0">
+        <button onclick="window.openLoginModal ? window.openLoginModal() : window.location.href='login.html'" class="nav-login-btn px-4 sm:px-5 py-2 rounded-full border border-red-500/40 hover:border-red-400 bg-white/[0.06] hover:bg-red-950/50 text-xs uppercase tracking-wider font-bold text-white transition-all flex items-center gap-2 backdrop-blur-md shadow-[0_0_15px_rgba(239,68,68,0.2)] hover:shadow-[0_0_20px_rgba(239,68,68,0.4)]">
+          <i data-lucide="user" class="w-3.5 h-3.5 text-red-400"></i>
+          <span>LOGIN</span>
+        </button>
+        <a href="quote.html" class="btn-pill-red px-5 sm:px-6 py-2 text-xs uppercase tracking-wider font-bold shadow-lg">GET STARTED</a>
+      </div>
+
+      <!-- Mobile Hamburger Button -->
+      <button id="mobile-menu-btn" class="lg:hidden p-2 rounded-xl bg-slate-900/80 border border-red-900/40 text-slate-300 hover:text-white hover:border-red-500 transition-colors backdrop-blur-md">
+        <i data-lucide="menu" class="w-5 h-5"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- MOBILE NAVIGATION DRAWER -->
+  <div id="mobile-menu-drawer" class="fixed inset-y-0 right-0 z-50 w-72 bg-[#080506]/98 backdrop-blur-2xl border-l border-red-900/50 p-6 flex flex-col justify-between transform translate-x-full transition-transform duration-300 lg:hidden shadow-2xl">
+    <div>
+      <div class="flex items-center justify-between pb-6 border-b border-red-950/60">
+        <a href="index.html" class="flex items-center gap-2">
+          <img src="assets/images/logo.webp" alt="Stackly" class="h-7 sm:h-8 w-auto object-contain drop-shadow-[0_2px_12px_rgba(239,68,68,0.4)]">
+        </a>
+        <button id="mobile-menu-close" class="p-1 rounded-lg text-slate-400 hover:text-white hover:bg-slate-900 transition-colors">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <nav class="flex flex-col gap-3.5 mt-6 text-sm font-semibold tracking-wide text-slate-300">
+        <a href="index.html" class="py-1.5 transition-colors text-slate-300 hover:text-red-400">HOME</a>
+        <a href="about.html" class="py-1.5 transition-colors text-slate-300 hover:text-red-400">ABOUT US</a>
+        <a href="services.html" class="py-1.5 transition-colors text-slate-300 hover:text-red-400">SERVICES</a>
+        <a href="plans.html" class="py-1.5 transition-colors text-red-500 font-bold border-l-2 border-red-500 pl-2">COVERAGE & PLANS</a>
+        <a href="quote.html" class="py-1.5 transition-colors text-slate-300 hover:text-red-400">PREMIUM CALCULATOR</a>
+        <a href="claims.html" class="py-1.5 transition-colors text-slate-300 hover:text-red-400">EXPRESS CLAIMS</a>
+        <a href="contact.html" class="py-1.5 transition-colors text-slate-300 hover:text-red-400">CONTACT & SOS</a>
+        <a href="dashboard.html" class="py-1.5 transition-colors text-red-400 hover:text-red-300 font-bold">POLICYHOLDER PORTAL</a>
+      </nav>
+    </div>
+
+    <div class="pt-6 border-t border-red-950/60 space-y-3">
+      <a href="login.html" class="block w-full py-2.5 text-center rounded-xl bg-slate-900/90 border border-slate-700 text-xs font-semibold uppercase tracking-wider text-slate-200 hover:border-red-500/50 transition-colors">Sign In</a>
+      <a href="quote.html" class="block w-full py-2.5 text-center btn-pill-red text-xs uppercase tracking-wider font-bold">GET STARTED</a>
+    </div>
+  </div>
+
+  <!-- BREADCRUMB & HEADER -->
+  <section class="pt-10 pb-6 bg-[#070b14] border-b border-slate-800/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center gap-2 text-xs font-mono text-slate-500 mb-3">
+        <a href="index.html" class="hover:text-red-400">HOME</a>
+        <span>/</span>
+        <span class="text-red-400">PREMIUM CALCULATOR & QUOTE ENGINE</span>
+      </div>
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+        <div>
+          <h1 class="font-display text-3xl sm:text-4xl font-extrabold text-white">PRECISION ACTUARIAL QUOTE ENGINE</h1>
+          <p class="text-xs sm:text-sm text-slate-400 mt-1">Configure your vehicle specs, IDV valuation, and add-on coverage to compute real-time guaranteed rates.</p>
+        </div>
+        <div class="flex items-center gap-3">
+          <span class="px-3 py-1 rounded-full bg-emerald-950/80 border border-emerald-500/40 text-emerald-400 text-xs font-mono flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span>LIVE 2026 TARIFF RATES ACTIVE</span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTERACTIVE QUOTE CUSTOMIZER -->
+  <section class="py-12 bg-[#070b14]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- Left: Configuration Form (8 Columns) -->
+        <div class="lg:col-span-8 space-y-8">
+          
+          <!-- Step 1: Vehicle Category Switcher -->
+          <div class="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-4">
+            <div class="flex items-center justify-between">
+              <h3 class="font-display text-base font-bold text-white flex items-center gap-2">
+                <span class="w-6 h-6 rounded-full bg-cyan-500 text-slate-950 text-xs font-mono font-bold flex items-center justify-center">1</span>
+                <span>Select Vehicle Category</span>
+              </h3>
+              <span class="text-[10px] font-mono text-slate-400 uppercase">CATEGORY CLASSIFICATION</span>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              <button onclick="setCategory('car')" id="cat-btn-car" class="cat-pill active p-3 rounded-xl border border-red-500 bg-red-950/40 text-left transition-all">
+                <i data-lucide="car" class="w-5 h-5 text-red-400 mb-1.5"></i>
+                <div class="text-xs font-bold text-white">Private Car</div>
+                <div class="text-[10px] font-mono text-slate-400">Sedan / SUV / Coupe</div>
+              </button>
+              
+              <button onclick="setCategory('ev')" id="cat-btn-ev" class="cat-pill p-3 rounded-xl border border-slate-800 bg-slate-950 hover:border-slate-700 text-left transition-all">
+                <i data-lucide="battery-charging" class="w-5 h-5 text-emerald-400 mb-1.5"></i>
+                <div class="text-xs font-bold text-white">Electric (EV)</div>
+                <div class="text-[10px] font-mono text-slate-400">Battery Shield Plan</div>
+              </button>
+
+              <button onclick="setCategory('bike')" id="cat-btn-bike" class="cat-pill p-3 rounded-xl border border-slate-800 bg-slate-950 hover:border-slate-700 text-left transition-all">
+                <i data-lucide="bike" class="w-5 h-5 text-amber-400 mb-1.5"></i>
+                <div class="text-xs font-bold text-white">Two-Wheeler</div>
+                <div class="text-[10px] font-mono text-slate-400">Superbike & Cruiser</div>
+              </button>
+
+              <button onclick="setCategory('fleet')" id="cat-btn-fleet" class="cat-pill p-3 rounded-xl border border-slate-800 bg-slate-950 hover:border-slate-700 text-left transition-all">
+                <i data-lucide="truck" class="w-5 h-5 text-indigo-400 mb-1.5"></i>
+                <div class="text-xs font-bold text-white">Commercial</div>
+                <div class="text-[10px] font-mono text-slate-400">Fleet & Van Umbrella</div>
+              </button>
+            </div>
+          </div>
+
+          <!-- Step 2: Vehicle Specs & Identification -->
+          <div class="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-4">
+            <div class="flex items-center justify-between">
+              <h3 class="font-display text-base font-bold text-white flex items-center gap-2">
+                <span class="w-6 h-6 rounded-full bg-cyan-500 text-slate-950 text-xs font-mono font-bold flex items-center justify-center">2</span>
+                <span>Vehicle Details & RTO</span>
+              </h3>
+              <span class="text-[10px] font-mono text-slate-400 uppercase">SPECIFICATIONS</span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div>
+                <label class="block text-[11px] font-mono uppercase text-slate-400 mb-1">Make & Model</label>
+                <select id="vehicle-select" onchange="handleVehicleChange()" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2.5 text-xs text-white outline-none focus:border-red-400">
+                  <!-- Dynamically Populated -->
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-mono uppercase text-slate-400 mb-1">Year of Manufacture</label>
+                <select id="year-select" onchange="handleYearChange()" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2.5 text-xs text-white outline-none focus:border-red-400">
+                  <option value="2026">2026 (Brand New Vehicle)</option>
+                  <option value="2025">2025 (1 Year Old)</option>
+                  <option value="2024" selected>2024 (2 Years Old)</option>
+                  <option value="2023">2023 (3 Years Old)</option>
+                  <option value="2022">2022 (4 Years Old)</option>
+                  <option value="2021">2021 (5+ Years Old)</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-mono uppercase text-slate-400 mb-1">Registration RTO / City</label>
+                <select id="rto-select" onchange="recalculateQuote()" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2.5 text-xs text-white outline-none focus:border-red-400">
+                  <option value="New York">New York Metro (NY)</option>
+                  <option value="Los Angeles">Los Angeles Zone 1 (CA)</option>
+                  <option value="San Francisco">San Francisco Bay (CA)</option>
+                  <option value="Chicago">Chicago Metro (IL)</option>
+                  <option value="Houston">Houston Central (TX)</option>
+                  <option value="Miami">Miami Beach / South (FL)</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 3: IDV Valuation & No Claim Bonus (NCB) -->
+          <div class="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-6">
+            <div class="flex items-center justify-between">
+              <h3 class="font-display text-base font-bold text-white flex items-center gap-2">
+                <span class="w-6 h-6 rounded-full bg-cyan-500 text-slate-950 text-xs font-mono font-bold flex items-center justify-center">3</span>
+                <span>Valuation (IDV) & No Claim Bonus (NCB)</span>
+              </h3>
+              <span class="text-[10px] font-mono text-red-400 uppercase">POLICY ACCREDITATION</span>
+            </div>
+
+            <!-- IDV Slider -->
+            <div class="space-y-2">
+              <div class="flex items-center justify-between text-xs">
+                <span class="text-slate-400">Insured Declared Value (IDV):</span>
+                <span id="idv-display" class="font-mono text-sm font-bold text-red-400">$118,000</span>
+              </div>
+              <input type="range" id="idv-slider" min="0.85" max="1.15" step="0.05" value="1.0" oninput="handleIdvChange(this.value)" class="w-full">
+              <div class="flex items-center justify-between text-[10px] font-mono text-slate-500">
+                <span>Minimum IDV (-15%)</span>
+                <span>Market Standard</span>
+                <span>Maximum IDV (+15%)</span>
+              </div>
+            </div>
+
+            <!-- NCB Slider -->
+            <div class="space-y-2 pt-4 border-t border-slate-800">
+              <div class="flex items-center justify-between text-xs">
+                <span class="text-slate-400">Existing No Claim Bonus (NCB) Discount:</span>
+                <span id="ncb-display" class="font-mono text-sm font-bold text-emerald-400">35% NCB DISCOUNT</span>
+              </div>
+              <div class="grid grid-cols-6 gap-2">
+                <button onclick="setNcb(0)" class="ncb-btn py-1.5 rounded-lg bg-slate-950 border border-slate-800 text-[11px] font-mono text-slate-400 hover:text-white" data-ncb="0">0%</button>
+                <button onclick="setNcb(20)" class="ncb-btn py-1.5 rounded-lg bg-slate-950 border border-slate-800 text-[11px] font-mono text-slate-400 hover:text-white" data-ncb="20">20%</button>
+                <button onclick="setNcb(25)" class="ncb-btn py-1.5 rounded-lg bg-slate-950 border border-slate-800 text-[11px] font-mono text-slate-400 hover:text-white" data-ncb="25">25%</button>
+                <button onclick="setNcb(35)" class="ncb-btn py-1.5 rounded-lg bg-emerald-950 border border-emerald-500 text-[11px] font-mono text-emerald-400 font-bold" data-ncb="35">35%</button>
+                <button onclick="setNcb(45)" class="ncb-btn py-1.5 rounded-lg bg-slate-950 border border-slate-800 text-[11px] font-mono text-slate-400 hover:text-white" data-ncb="45">45%</button>
+                <button onclick="setNcb(50)" class="ncb-btn py-1.5 rounded-lg bg-slate-950 border border-slate-800 text-[11px] font-mono text-slate-400 hover:text-white" data-ncb="50">50%</button>
+              </div>
+              <p class="text-[10px] text-slate-500 font-mono">Transferable from any previous insurance company with zero paperwork.</p>
+            </div>
+          </div>
+
+          <!-- Step 4: Add-On Protectors Checklist -->
+          <div class="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-4">
+            <div class="flex items-center justify-between">
+              <h3 class="font-display text-base font-bold text-white flex items-center gap-2">
+                <span class="w-6 h-6 rounded-full bg-cyan-500 text-slate-950 text-xs font-mono font-bold flex items-center justify-center">4</span>
+                <span>Select Apex Protection Add-Ons</span>
+              </h3>
+              <span class="text-[10px] font-mono text-slate-400 uppercase">MODULAR RIDERS</span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="addons-grid">
+              <!-- Dynamically rendered -->
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right: Real-time Premium Breakdown Card (4 Columns Sticky) -->
+        <div class="lg:col-span-4 sticky top-24 space-y-6">
+          
+          <div class="p-6 rounded-2xl bg-gradient-to-b from-slate-900 via-slate-900/95 to-[#091122] border border-red-500/40 shadow-[0_20px_50px_rgba(0,0,0,0.5)] space-y-6">
+            
+            <div class="flex items-center justify-between pb-4 border-b border-slate-800">
+              <div>
+                <span class="text-[9px] font-mono uppercase tracking-[0.25em] text-red-400">ACTUARIAL SUMMARY</span>
+                <h4 class="font-display text-lg font-bold text-white" id="summary-vehicle-name">Porsche Taycan 4S</h4>
+              </div>
+              <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-red-950 border border-red-500/40 text-red-300">
+                ACTIVE
+              </span>
+            </div>
+
+            <!-- Breakdown Rows -->
+            <div class="space-y-3 text-xs">
+              <div class="flex items-center justify-between text-slate-300">
+                <span>Own Damage (OD) Gross:</span>
+                <span id="summary-gross-od" class="font-mono text-white">$1,947</span>
+              </div>
+              <div class="flex items-center justify-between text-emerald-400">
+                <span id="summary-ncb-label">NCB Bonus Discount (35%):</span>
+                <span id="summary-ncb-amt" class="font-mono">-$681</span>
+              </div>
+              <div class="flex items-center justify-between text-slate-300">
+                <span>Third-Party Statutory Tariff:</span>
+                <span id="summary-tp" class="font-mono text-white">$185</span>
+              </div>
+              <div class="flex items-center justify-between text-slate-300">
+                <span id="summary-addon-count">Apex Add-Ons (4 Selected):</span>
+                <span id="summary-addon-total" class="font-mono text-red-400">$460</span>
+              </div>
+              <div class="flex items-center justify-between text-slate-400 pt-2 border-t border-slate-800">
+                <span>Net Subtotal:</span>
+                <span id="summary-subtotal" class="font-mono text-white">$1,911</span>
+              </div>
+              <div class="flex items-center justify-between text-slate-400">
+                <span>Statutory Tax / GST (18%):</span>
+                <span id="summary-tax" class="font-mono text-white">$344</span>
+              </div>
+            </div>
+
+            <!-- Grand Total Display -->
+            <div class="p-4 rounded-xl bg-slate-950 border border-red-500/40 text-center space-y-1">
+              <span class="text-[10px] font-mono uppercase tracking-widest text-slate-400">TOTAL ANNUAL PREMIUM PAYABLE</span>
+              <div class="font-display text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400" id="summary-grand-total">
+                $2,255
+              </div>
+              <div class="text-[11px] font-mono text-slate-400">
+                Or <strong class="text-white" id="summary-monthly-emi">$188 / mo</strong> in 12 Flex-Pay EMIs
+              </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="space-y-3">
+              <button onclick="openInstantPurchaseModal()" class="w-full py-3.5 rounded-xl btn-pill-red text-xs uppercase tracking-widest font-bold flex items-center justify-center gap-2">
+                <i data-lucide="shield-check" class="w-4 h-4"></i>
+                <span>BUY POLICY ONLINE &bull; 60 SEC</span>
+              </button>
+
+              <button onclick="window.quoteEngine.generateQuotePDF()" class="w-full py-2.5 rounded-xl bg-slate-950 border border-slate-700 hover:border-slate-500 text-xs font-mono uppercase tracking-wider text-slate-300 hover:text-white flex items-center justify-center gap-2 transition-all">
+                <i data-lucide="download" class="w-3.5 h-3.5 text-red-400"></i>
+                <span>Download Official Quote (.TXT)</span>
+              </button>
+            </div>
+
+            <div class="pt-2 text-[10px] text-slate-500 font-mono text-center flex items-center justify-center gap-2">
+              <i data-lucide="lock" class="w-3 h-3 text-emerald-400"></i>
+              <span>256-bit Encrypted &bull; Instant Policy Delivery</span>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- INSTANT PURCHASE MODAL -->
+  <div id="instant-purchase-modal" class="fixed inset-0 z-[10030] flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-md hidden">
+    <div class="relative w-full max-w-lg rounded-2xl bg-slate-900 border border-red-500/40 p-6 sm:p-8 shadow-2xl text-left overflow-hidden">
+      
+      <div class="flex items-center justify-between pb-4 border-b border-slate-800">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-red-950 border border-red-500/40 flex items-center justify-center text-red-400">
+            <i data-lucide="credit-card" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h3 class="font-display text-lg font-bold text-white">INSTANT POLICY ISSUANCE</h3>
+            <p class="text-[10px] font-mono text-red-400">ZERO DEDUCTIBLE MOTOR SHIELD</p>
+          </div>
+        </div>
+        <button onclick="closeInstantPurchaseModal()" class="w-8 h-8 rounded-lg bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <div class="py-4 space-y-4">
+        <div class="p-3.5 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-between">
+          <div>
+            <div class="text-xs font-bold text-white" id="modal-policy-title">Porsche Taycan 4S</div>
+            <div class="text-[10px] font-mono text-slate-400">Comprehensive + Zero-Dep Shield</div>
+          </div>
+          <div class="text-right">
+            <div class="font-mono text-base font-bold text-red-400" id="modal-policy-price">$2,255</div>
+            <div class="text-[10px] text-emerald-400 font-mono">Instant PDF Certificate</div>
+          </div>
+        </div>
+
+        <div class="space-y-3">
+          <div>
+            <label class="block text-[11px] font-mono uppercase text-slate-400 mb-1">Policyholder Legal Name</label>
+            <input type="text" id="modal-owner-name" value="${(window.auth && window.auth.currentUser) ? window.auth.currentUser.name : 'Alexander Wright'}" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white outline-none focus:border-red-400">
+          </div>
+          <div>
+            <label class="block text-[11px] font-mono uppercase text-slate-400 mb-1">Email for Instant Certificate Delivery</label>
+            <input type="email" id="modal-owner-email" value="${(window.auth && window.auth.currentUser) ? window.auth.currentUser.email : 'alexander.wright@vanguard-vip.io'}" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white outline-none focus:border-red-400">
+          </div>
+          <div>
+            <label class="block text-[11px] font-mono uppercase text-slate-400 mb-1">Vehicle License Plate / Chassis #</label>
+            <input type="text" id="modal-owner-plate" value="${(window.auth && window.auth.currentUser) ? window.auth.currentUser.regNo : 'NY-APX-9942'}" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white outline-none focus:border-red-400 font-mono">
+          </div>
+        </div>
+      </div>
+
+      <div class="pt-4 border-t border-slate-800 space-y-3">
+        <button onclick="executePolicyPurchase()" class="w-full py-3.5 rounded-xl btn-pill-red text-xs uppercase tracking-widest font-bold flex items-center justify-center gap-2">
+          <i data-lucide="check-circle" class="w-4 h-4"></i>
+          <span>AUTHORIZE & ISSUE POLICY CERTIFICATE</span>
+        </button>
+        <p class="text-[10px] text-slate-500 font-mono text-center">Simulated instant sandbox authorization &bull; Generates valid certificate</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="bg-[#05080f] border-t border-slate-800/80 pt-12 pb-8 text-slate-400 text-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-2">
+        <img src="assets/images/logo-icon.webp" alt="Vanguard" class="w-5 h-5">
+        <span class="font-display font-bold text-white">STACKLY MOTOR & MOBILITY ASSURE</span>
+      </div>
+      <p class="text-[11px] text-slate-500">&copy; 2026 Vanguard Mobility Underwriting Ltd. Real-time Actuarial Engine.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/quote-engine.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Check URL parameters for seamless connectivity from Homepage & Plans
+      const params = new URLSearchParams(window.location.search);
+      const urlType = params.get('type');
+      const urlBrand = params.get('brand');
+      const urlModel = params.get('model');
+      const urlReg = params.get('reg');
+      const urlPlan = params.get('plan');
+
+      if (urlType && ['car', 'ev', 'bike', 'fleet'].includes(urlType)) {
+        window.quoteEngine.setCategory(urlType);
+      } else {
+        window.quoteEngine.setCategory('car');
+      }
+
+      renderVehicleOptions();
+      renderAddonsList();
+
+      // Auto-select brand or model if passed (e.g. Ferrari SF90 Stradale)
+      if (urlBrand || urlModel) {
+        const select = document.getElementById('vehicle-select');
+        const list = VEHICLE_CATALOG[window.quoteEngine.state.category] || VEHICLE_CATALOG.car;
+        const foundIdx = list.findIndex(v => 
+          (urlBrand && v.brand.toLowerCase() === urlBrand.toLowerCase()) ||
+          (urlModel && v.model.toLowerCase().includes(urlModel.toLowerCase()))
+        );
+        if (foundIdx > -1) {
+          select.value = foundIdx;
+          window.quoteEngine.state.selectedVehicle = list[foundIdx];
+        }
+      }
+
+      if (urlReg) {
+        const plateInput = document.getElementById('modal-owner-plate');
+        if (plateInput) plateInput.value = urlReg;
+        if (window.showToast) window.showToast(`Active underwriting profile loaded for ${urlReg}`, 'info');
+      }
+
+      if (urlPlan) {
+        if (urlPlan.includes('platinum') || urlPlan.includes('maranello')) {
+          window.quoteEngine.state.selectedPlanTier = 'platinum';
+          if (!window.quoteEngine.state.selectedAddons.includes('trackDayShield')) {
+            window.quoteEngine.state.selectedAddons.push('trackDayShield', 'cashlessFerrari');
+          }
+          renderAddonsList();
+        }
+      }
+
+      recalculateQuote();
+    });
+
+    function setCategory(cat) {
+      window.quoteEngine.setCategory(cat);
+      
+      document.querySelectorAll('.cat-pill').forEach(btn => {
+        btn.classList.remove('border-red-500', 'bg-red-950/40');
+        btn.classList.add('border-slate-800', 'bg-slate-950');
+      });
+      const activeBtn = document.getElementById(`cat-btn-${cat}`);
+      if (activeBtn) {
+        activeBtn.classList.remove('border-slate-800', 'bg-slate-950');
+        activeBtn.classList.add('border-red-500', 'bg-red-950/40');
+      }
+
+      renderVehicleOptions();
+      renderAddonsList();
+      recalculateQuote();
+      if (window.playHapticSound) window.playHapticSound('click');
+    }
+
+    function renderVehicleOptions() {
+      const select = document.getElementById('vehicle-select');
+      const list = VEHICLE_CATALOG[window.quoteEngine.state.category] || VEHICLE_CATALOG.car;
+      
+      select.innerHTML = list.map((v, i) => `
+        <option value="${i}" ${i === 0 ? 'selected' : ''}>${v.brand} ${v.model} (${v.fuel})</option>
+      `).join('');
+    }
+
+    function renderAddonsList() {
+      const container = document.getElementById('addons-grid');
+      const selected = window.quoteEngine.state.selectedAddons;
+
+      container.innerHTML = Object.entries(ADD_ONS).map(([key, item]) => {
+        const isChecked = selected.includes(key);
+        return `
+          <label class="p-3.5 rounded-xl border ${isChecked ? 'border-red-500/50 bg-red-950/20' : 'border-slate-800 bg-slate-950/60'} flex items-start gap-3 cursor-pointer hover:border-slate-700 transition-all">
+            <input type="checkbox" onchange="toggleAddonItem('${key}')" ${isChecked ? 'checked' : ''} class="mt-1 rounded accent-cyan-400">
+            <div>
+              <div class="text-xs font-bold text-white flex items-center justify-between">
+                <span>${item.name}</span>
+              </div>
+              <p class="text-[10px] text-slate-400 leading-tight mt-0.5">${item.desc}</p>
+            </div>
+          </label>
+        `;
+      }).join('');
+    }
+
+    function toggleAddonItem(key) {
+      window.quoteEngine.toggleAddon(key);
+      renderAddonsList();
+      recalculateQuote();
+      if (window.playHapticSound) window.playHapticSound('click');
+    }
+
+    function handleVehicleChange() {
+      const idx = document.getElementById('vehicle-select').value;
+      const list = VEHICLE_CATALOG[window.quoteEngine.state.category] || VEHICLE_CATALOG.car;
+      window.quoteEngine.state.selectedVehicle = list[idx] || list[0];
+      recalculateQuote();
+    }
+
+    function handleYearChange() {
+      window.quoteEngine.state.regYear = parseInt(document.getElementById('year-select').value, 10);
+      recalculateQuote();
+    }
+
+    function handleIdvChange(val) {
+      window.quoteEngine.state.idvMultiplier = parseFloat(val);
+      recalculateQuote();
+    }
+
+    function setNcb(pct) {
+      window.quoteEngine.state.ncbDiscount = pct;
+      document.querySelectorAll('.ncb-btn').forEach(btn => {
+        const isTarget = parseInt(btn.dataset.ncb, 10) === pct;
+        btn.classList.toggle('bg-emerald-950', isTarget);
+        btn.classList.toggle('border-emerald-500', isTarget);
+        btn.classList.toggle('text-emerald-400', isTarget);
+        btn.classList.toggle('font-bold', isTarget);
+        btn.classList.toggle('bg-slate-950', !isTarget);
+        btn.classList.toggle('border-slate-800', !isTarget);
+        btn.classList.toggle('text-slate-400', !isTarget);
+      });
+      document.getElementById('ncb-display').textContent = `${pct}% NCB DISCOUNT`;
+      recalculateQuote();
+      if (window.playHapticSound) window.playHapticSound('click');
+    }
+
+    function recalculateQuote() {
+      const calc = window.quoteEngine.calculate();
+
+      document.getElementById('idv-display').textContent = `$${calc.idv.toLocaleString()}`;
+      document.getElementById('summary-vehicle-name').textContent = `${calc.vehicle.brand} ${calc.vehicle.model}`;
+      document.getElementById('summary-gross-od').textContent = `$${calc.grossOD.toLocaleString()}`;
+      document.getElementById('summary-ncb-label').textContent = `NCB Bonus Discount (${calc.ncbPercent}%):`;
+      document.getElementById('summary-ncb-amt').textContent = `-$${calc.ncbDiscountAmount.toLocaleString()}`;
+      document.getElementById('summary-tp').textContent = `$${calc.tpTariff.toLocaleString()}`;
+      document.getElementById('summary-addon-count').textContent = `Apex Add-Ons (${calc.addOnBreakdown.length} Selected):`;
+      document.getElementById('summary-addon-total').textContent = `$${calc.addOnTotal.toLocaleString()}`;
+      document.getElementById('summary-subtotal').textContent = `$${calc.subtotal.toLocaleString()}`;
+      document.getElementById('summary-tax').textContent = `$${calc.taxGST.toLocaleString()}`;
+      document.getElementById('summary-grand-total').textContent = `$${calc.grandTotal.toLocaleString()}`;
+      document.getElementById('summary-monthly-emi').textContent = `$${calc.monthlyEMI.toLocaleString()} / mo`;
+    }
+
+    function openInstantPurchaseModal() {
+      const calc = window.quoteEngine.calculate();
+      const modal = document.getElementById('instant-purchase-modal');
+      document.getElementById('modal-policy-title').textContent = `${calc.vehicle.brand} ${calc.vehicle.model}`;
+      document.getElementById('modal-policy-price').textContent = `$${calc.grandTotal.toLocaleString()}`;
+      modal.classList.remove('hidden');
+      if (window.playHapticSound) window.playHapticSound('click');
+    }
+
+    function closeInstantPurchaseModal() {
+      document.getElementById('instant-purchase-modal').classList.add('hidden');
+    }
+
+    function executePolicyPurchase() {
+      const calc = window.quoteEngine.calculate();
+      const name = document.getElementById('modal-owner-name').value;
+      const email = document.getElementById('modal-owner-email').value;
+      const plate = document.getElementById('modal-owner-plate').value;
+
+      const newPolicy = {
+        name: name,
+        email: email,
+        regNo: plate,
+        vehicle: `${calc.vehicle.brand} ${calc.vehicle.model}`,
+        policyNo: 'VG-POL-' + Math.floor(10000 + Math.random() * 90000),
+        role: 'Apex Platinum Member',
+        plan: 'Apex Zero-Depreciation Shield',
+        idv: `$${calc.idv.toLocaleString()}`,
+        expiry: 'Oct 29, 2027',
+        driverScore: 95,
+        avatar: (name ? name[0] : 'U').toUpperCase()
+      };
+
+      if (window.auth) window.auth.saveUser(newPolicy);
+      closeInstantPurchaseModal();
+      if (window.showToast) window.showToast(`Policy ${newPolicy.policyNo} issued successfully!`, 'success');
+      if (window.playHapticSound) window.playHapticSound('success');
+      setTimeout(() => {
+        window.location.href = 'dashboard.html';
+      }, 900);
+    }
+  </script>
+</body>
+</html>

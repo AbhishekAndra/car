@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" class="antialiased selection:bg-red-500 selection:text-white">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 — Route Telemetry Lost | VANGUARD AUTO</title>
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              cyan: '#00f0ff',
+              blue: '#2563eb',
+              indigo: '#4f46e5',
+              dark: '#070b14',
+              surface: '#0d1527',
+              border: '#1e293b'
+            }
+          },
+          fontFamily: {
+            display: ['"Space Grotesk"', 'sans-serif'],
+            sans: ['"Plus Jakarta Sans"', 'Inter', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-[#070b14] text-slate-100 font-sans min-h-screen flex flex-col justify-between">
+
+  <header class="py-6 px-6 sm:px-12 flex items-center justify-between">
+    <a href="index.html" class="flex items-center gap-3">
+      <img src="assets/images/logo.webp" alt="Stackly" class="h-8 sm:h-9 w-auto object-contain drop-shadow-[0_2px_16px_rgba(239,68,68,0.45)]">
+    </a>
+    <a href="index.html" class="text-xs font-mono uppercase text-red-400 hover:underline">Return to Base</a>
+  </header>
+
+  <main class="flex-1 flex items-center justify-center p-6 text-center">
+    <div class="max-w-md space-y-6">
+      
+      <!-- Radar Scanner graphic -->
+      <div class="relative w-36 h-36 mx-auto flex items-center justify-center">
+        <div class="absolute inset-0 rounded-full border border-red-500/40 radar-pulse"></div>
+        <div class="absolute inset-4 rounded-full border border-cyan-500/50"></div>
+        <div class="w-16 h-16 rounded-full bg-cyan-950/80 border border-cyan-400 flex items-center justify-center text-red-400 shadow-[0_0_30px_rgba(0,240,255,0.5)]">
+          <i data-lucide="radio" class="w-8 h-8 animate-pulse"></i>
+        </div>
+      </div>
+
+      <div class="space-y-2">
+        <span class="text-xs font-mono uppercase tracking-[0.3em] text-red-400">GPS TELEMETRY DISCONNECTED &bull; CODE 404</span>
+        <h1 class="font-display text-4xl font-extrabold text-white">ROUTE LOST IN TRANSIT</h1>
+        <p class="text-xs text-slate-400 leading-relaxed">
+          The requested coordinate or vehicle policy endpoint cannot be located on the Vanguard mobility network. Our autonomous navigation suggests returning to the primary command portal.
+        </p>
+      </div>
+
+      <div class="flex flex-wrap items-center justify-center gap-3 pt-2">
+        <a href="index.html" class="btn-pill-red px-6 py-2.5 rounded-xl text-xs uppercase tracking-wider font-bold">
+          Homepage Overview
+        </a>
+        <a href="claims.html" class="px-5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-xs font-mono uppercase text-slate-300 hover:text-white transition-all">
+          Express Claims
+        </a>
+        <a href="quote.html" class="px-5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-xs font-mono uppercase text-slate-300 hover:text-white transition-all">
+          Quote Engine
+        </a>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="py-6 text-center text-slate-600 text-[11px] font-mono">
+    &copy; 2026 Vanguard Motor Assure &bull; Autonomous GPS Routing
+  </footer>
+
+  <script>
+    if (window.lucide) window.lucide.createIcons();
+  </script>
+</body>
+</html>
